@@ -1,10 +1,26 @@
-var myApp = angular.module('myApp', ['ui.router']);
-
+var myApp = angular
+  .module('myApp', [
+    'ui.router',
+    'MDB.LoginController',
+    'MDB.UserFactory'
+  ]);
 
 myApp.config(function($stateProvider, $urlRouterProvider){
+
+  $urlRouterProvider.otherwise('/');
+
   $stateProvider
-    .state('home', {
+    .state('nav', {
       url: "/",
-      templateUrl: "./partials/index.html"
+      views: {
+        'nav': {
+          templateUrl: "partials/nav.html",
+          controller: 'LoginController'
+        },
+        'landing': {
+          templateUrl: "partials/landing.html"
+        }
+      }
     })
 })
+
