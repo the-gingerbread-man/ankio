@@ -33,19 +33,19 @@ router.post(function(req,res) {
 router.post(function(req,res) {
 	Decks.destroy({
 		where: {
-			id: deckId
+			id: req.body.id
 		}
 	});
 
 	Cards.findAll({
 		where: {
-			deckId: deckId
+			deckId: req.body.deckId
 		}
 	}).then(function(cards) {
 		cards.forEach(function(card) {
 			Cards.destroy({
 				where: {
-					id: card.id
+					id: card.id // ??
 				}
 			})
 		})

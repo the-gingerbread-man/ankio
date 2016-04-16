@@ -18,30 +18,29 @@ var Cards = connection.define('cards', {
 });
 
 // insert cards of a deck into postgres
-router.post(function(req,res) {
-	function createCards(deckId, aQuestion, aAnswer) {
-		connection.sync().then(function() {
-			Cards.create({
-				deckId: deckId,
-				question: aQuestion,
-				answer: aAnswer,
-				numCorrect: 0,
-				displayCount: 0
-		  }).catch(function(error) {
-		 	  console.error(error);
-			});
+router.post('/create', function(req,res) {
+	connection.sync().then(function() {
+		Cards.create({
+			deckId: req.body.deckId,
+			question: req.body.question,
+			answer: res.body.answer,
+			numCorrect: 0,
+			displayCount: 0
+	  }).catch(function(error) {
+		  console.error(error);
 		});
-  }
+	});
+
 });
 
 // INPUT GLORIOUS CARD CREATION: createCards(32, "What is the difference between a living person and a corpse?", "Time");
 
 // Alter successRate & displayCount as the user views the card
 // and when they get the correct answer
-router.post(function(req,res) {
+router.post('/update', function(req,res) {
 	Cards.update({
-		numCorrect: newNumCorrect,
-		displayCount: newDisplayCount
+		numCorrect: req.body.numCorrect,
+		displayCount: req.body.displayCount
 	}, {
 		where: {
 			id: cardId
@@ -54,25 +53,24 @@ router.post(function(req,res) {
 // user can edit their question and answer, changes will reflect in postgres
 router.post(function(req,res) {
 	Cards.update({
-		question: newQuestion,
-		answer: newAnswer
+		question: req.body.question,
+		answer: req.body.answer
 	}, {
 		where: {
-			id: cardId
+			id: req.body.id
 		}
 	});
 });
 // INPUT CHANGES: editRow(7, "Derpdie derp", "Sherp sherp!");
 
 // read all cards in 1 deck
-router.post(function(req, res) {
+router.post( '/read', function(req, res) {
 	// console.log(req.body);
 	Cards.findAll({
 		where: {
-			deckId: deckId
+			deckId: req.body.deckId
 		}
 	}).then(function(decksObj) {
-		console.log(decksObj)
 		// res.send()
 	}).catch(function(error) {
 		console.error(error);
@@ -83,7 +81,7 @@ router.post(function(req, res) {
 router.post(function(req,res) {
 		Cards.destroy({
 			where: {
-				id: cardId
+				id: req.body.id
 			}
 		});
 });
