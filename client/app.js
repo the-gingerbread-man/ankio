@@ -2,7 +2,8 @@ var myApp = angular
   .module('myApp', [
     'ui.router',
     'MDB.LoginController',
-    'MDB.UserFactory'
+    'MDB.UserFactory',
+    'MDB.ContentController'
   ]);
 
 myApp.config(function($stateProvider, $urlRouterProvider){
@@ -10,7 +11,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
-    .state('nav', {
+    .state('index', {
       url: "/",
       views: {
         'nav': {
@@ -18,7 +19,8 @@ myApp.config(function($stateProvider, $urlRouterProvider){
           controller: 'LoginController'
         },
         'landing': {
-          templateUrl: "partials/landing.html"
+          templateUrl: "partials/landing.html",
+          controller: 'ContentController'
         }
       }
     })

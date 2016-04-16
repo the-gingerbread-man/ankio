@@ -1,34 +1,41 @@
-var express = require('express');
-var router = express.Router();
-var Sequelize = require('sequelize');
-// var sequelize = new Sequelize('potato', 'potato123', '123', {
-//   host: 'localhost',
-//   dialect: 'postgres',
-// });
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('potato', 'potato123', '123', {
+  host: 'localhost',
+  dialect: 'postgres',
+});
 
-// var User = sequelize.define('user', {
-//   _id : {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true
-//   },
-//   username: Sequelize.TEXT,
-//   password: Sequelize.TEXT
-// });
+//Define User
+var User = sequelize.define('account', {
+  username: {type: Sequelize.STRING, unique: true, allowNull: false},
+  password: {type: Sequelize.STRING, allowNull: false}
+});
 
-// sequelize.sync({ logging: console.log }).then((error, data) => {
-//   console.log("error: ", error);
-// });
-
+//Finds existing user in database after bcrypt hash
 router.post('/', function(req, res) {
-  // if(req.body.username === '1' && req.body.password === '1') {
-  // }
-    res.send(req.body);
+  User.findOne({ where: { username: req.body.username } }).then(function(item) {
+    var hashedPassword = bcrypt.hashSync(req.body.password, 10);
+    if(bcrypt.compareSync(req.body.password, item.dataValues.password)) {
+      res.send(req.body.username);
+    } else {
+      res.send('error');
+    }
+  });
+});
 
-  // results.forEach(function(listing) {
-  //   Listing.create(createListing(listing));
-  // });
-
+//Creates new user in database after bcrypt hash
+router.post('/create', function(req, res) {
+  var hashedPassword = bcrypt.hashSync(req.body.password, 10);
+  sequelize.sync().then(function() {
+    User.create({
+      username: req.body.username,
+      password: hashedPassword,
+    }).catch(function(error) {
+      // console.error(error);
+    });
+  });
 });
 
 module.exports = router;
