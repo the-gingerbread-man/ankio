@@ -6,7 +6,6 @@ angular
 function MainController($scope, DeckFactory) {
 
   $scope.setDeck = function(deckId) {
-    $scope.fake = deckId;
-//    DeckFactory.setDeck($scope.deck);
+    DeckFactory.setDeck(deckId);
   }
 }

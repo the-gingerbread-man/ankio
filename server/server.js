@@ -4,7 +4,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const users = require('./routes/users');
 const decks = require('./routes/decks');
-const cards = require('./routes/users');
+const cards = require('./routes/cards');
 const connection = new Sequelize('potato', 'potato123', '123', {
   host: 'localhost',
   dialect: 'postgres',

@@ -1,13 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
+const Sequelize = require('sequelize');
+const connection = new Sequelize('potato', 'potato123', '123', {
+  host: 'localhost',
+  dialect: 'postgres',
+});
+
 // deck tables
 var Decks = connection.define('decks', {
 	username: Sequelize.STRING,
 	deckName: Sequelize.STRING,
 })
 
-// create a new deck, insert into postgres 
+// create a new deck, insert into postgres
 router.post(function(req,res) {
 	function createDeck(userName, deckName) {
 		connection.sync().then(function() {
@@ -25,7 +31,7 @@ router.post(function(req,res) {
 
 // delete a deck
 router.post(function(req,res) {
-	function deleteDeck(deckId) {  
+	function deleteDeck(deckId) {
 		Decks.destroy({
 			where: {
 				id: deckId
@@ -48,6 +54,6 @@ router.post(function(req,res) {
 	}
 });
 
-// INPUT: deleteDeck(32); 
+// INPUT: deleteDeck(32);
 
 module.exports = router;
