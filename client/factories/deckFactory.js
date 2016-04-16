@@ -22,9 +22,9 @@ function DeckFactory($http) {
     getAllDecks: function(user) {
       console.log("getAllDecks in DeckFactory");
       $http.post('/decks', {username: "Bob"});
-        // .then(function(res) {
-        //   this.userDecks = res.body;
-        // });
+        .then(function(res) {
+          this.userDecks = res.body;
+        });
     },
 
     setDeck: function(deckId) {
