@@ -1,22 +1,28 @@
 const express = require('express');
 const router = express.Router();
 
+const Sequelize = require('sequelize');
+const connection = new Sequelize('potato', 'potato123', '123', {
+  host: 'localhost',
+  dialect: 'postgres',
+});
+
 // user table
 var User = connection.define('user', {
 	username: {type: Sequelize.STRING, unique: true, allowNull: false},
 	password: {type: Sequelize.STRING, allowNull: false}
 });
 
-// create a new user and store into postgres 
+// create a new user and store into postgres
 router.post(function(req,res) {
 	connection.sync().then(function() {
 		User.create({
 			username: 'SOMEUSERNAME9',
 			password: 'SOMEPASSWORD9',
 		}).catch(function(error) {
-		// console.error(error);   
+		// console.error(error);
 		});
-	}); 
+	});
 });
 
 // Check to see if login is valid
