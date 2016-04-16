@@ -27,7 +27,6 @@ router.post(function(req,res) {
 
 // Check to see if login is valid
 router.post(function(req,res) {
-	function isLoginValid(aUserName) {
 		User.findAll({
 			where: {
 				username: aUserName, // username that user inputs on login
@@ -42,7 +41,6 @@ router.post(function(req,res) {
 		}}).catch(function(error) {
 		// if any errors occur above
 		});
-	}
 });
 //isLoginValid("SOMEUSERNAME2");
 

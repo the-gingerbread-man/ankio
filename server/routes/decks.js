@@ -15,43 +15,41 @@ var Decks = connection.define('decks', {
 
 // create a new deck, insert into postgres
 router.post(function(req,res) {
-	function createDeck(userName, deckName) {
-		connection.sync().then(function() {
-			Decks.create({
-				username: userName,
-				deckName: deckName
-			}).catch(function(error) {
-				 console.error(error);
-			})
-		});
-	}
+	connection.sync().then(function() {
+		Decks.create({
+			username: req.body.username,
+			deckName: req.body.deckname
+		}).then(function(something) {
+			console.log(something);
+		}).catch(function(error) {
+			 console.error(error);
+		})
+	});
 });
 
 // INPUT NEW DECK HERE: createDeck(someUser, aDeckName)
 
 // delete a deck
 router.post(function(req,res) {
-	function deleteDeck(deckId) {
-		Decks.destroy({
-			where: {
-				id: deckId
-			}
-		});
+	Decks.destroy({
+		where: {
+			id: deckId
+		}
+	});
 
-		Cards.findAll({
-			where: {
-				deckId: deckId
-			}
-		}).then(function(cards) {
-			cards.forEach(function(card) {
-				Cards.destroy({
-					where: {
-						id: card.id
-					}
-				})
+	Cards.findAll({
+		where: {
+			deckId: deckId
+		}
+	}).then(function(cards) {
+		cards.forEach(function(card) {
+			Cards.destroy({
+				where: {
+					id: card.id
+				}
 			})
 		})
-	}
+	})
 });
 
 // read all decks of 1 user
