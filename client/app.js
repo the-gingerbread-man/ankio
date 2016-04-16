@@ -4,7 +4,7 @@ var myApp = angular
     'TestController',
     'MainController',
     'CreateController',
-    'DeckService'
+    'DeckFactory'
   ]);
 
 

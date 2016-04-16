@@ -1,8 +1,8 @@
 angular
-  .module('DeckService', ['ui.router'])
-  .service('DeckService', DeckService);
+  .module('DeckFactory', ['ui.router'])
+  .factory('DeckFactory', DeckFactory);
 
-function DeckService() {
+function DeckFactory() {
   return {
     deck: {id: 1, username: "Bob", title: "Cat Facts", description: "Fun things about felines"},
 //    deck: {},
@@ -13,7 +13,7 @@ function DeckService() {
       return this.deck;
     },
     saveDeck: function(deck) {
-      console.log(deck); 
+      console.log(deck);
     }
   }
 }

@@ -3,11 +3,10 @@ angular
   .controller('MainController', MainController);
 
 
-function MainController($scope, DeckService) {
+function MainController($scope, DeckFactory) {
 
   $scope.setDeck = function(deckId) {
     $scope.fake = deckId;
-//    DeckService.setDeck($scope.deck);
+//    DeckFactory.setDeck($scope.deck);
   }
 }
-
