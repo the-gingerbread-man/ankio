@@ -38,7 +38,7 @@ router.post(function(req,res) {
 			}
 		});
 
-		cards.findAll({
+		Cards.findAll({
 			where: {
 				deckId: deckId
 			}
@@ -54,6 +54,20 @@ router.post(function(req,res) {
 	}
 });
 
-// INPUT: deleteDeck(32);
+// read all decks of 1 user
+router.post(function(req, res) {
+	// console.log(req.body);
+	Decks.findAll({
+		where: {
+			username: req.body.username
+		}
+	}).then(function(decksObj) {
+		console.log(decksObj)
+		// res.send()
+	}).catch(function(error) {
+				 console.error(error);
+	})
+});
 
+// INPUT: deleteDeck(32);
 module.exports = router;
