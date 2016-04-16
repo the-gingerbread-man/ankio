@@ -14,6 +14,8 @@ app.use('/users', users);
 app.use('/decks', decks);
 app.use('/cards', cards);
 
+app.use(express.static(path.join(__dirname, './../client/')));
+
 app.get('/', function(req,res){
   res.sendFile(path.join(__dirname + './../client/index.html'));
 })
@@ -33,7 +35,7 @@ app.listen(port, function() {
 */
 
 
-/* 	This is for the algorithim: 
+/* 	This is for the algorithim:
 	+ Keep track of right and wrong and add wrongs to a reviewArr
 		+ Every time the next button is clicked increment to currentCard++
 			+ if correct++
