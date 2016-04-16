@@ -10,17 +10,17 @@ const connection = new Sequelize('potato', 'potato123', '123', {
 // deck tables
 var Decks = connection.define('decks', {
 	username: Sequelize.STRING,
-	deckName: Sequelize.STRING,
+	deckname: Sequelize.STRING,
 })
 
 // create a new deck, insert into postgres
-router.post(function(req,res) {
+router.post('/create', function(req,res) {
 	connection.sync().then(function() {
 		Decks.create({
 			username: req.body.username,
-			deckName: req.body.deckname
-		}).then(function(something) {
-			console.log(something);
+			deckname: req.body.deckname
+		}).then(function(newDeck) {
+			res.send(newDeck);
 		}).catch(function(error) {
 			 console.error(error);
 		})
