@@ -1,0 +1,13 @@
+<div ng-show="landingPage" id="deckTable" ng-init="decks=[{id: 1, name: 'Animals', description: 'Different types of pets'}, {id: 2, name: 'Countries', description: 'Countries of the world'}, {id: 3, name: 'Food', description: 'Recipes from cookbook'}]">
+  <h1>--{{ fake }}--</h1>
+  <ul>
+    <li>
+      <span class="deckName">Deck Name</span>
+      <span class="desc">This is a description of the deck</span>
+    </li>
+    <li ng-repeat='deck in decks'>
+      <div class="deckName" ng-click="setDeck(deck.id)">{{ deck.name }}</div>
+      <span class="desc">{{ deck.description }}</span>
+    </li>
+  </ul>
+</div>

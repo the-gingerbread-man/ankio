@@ -3,7 +3,11 @@ var myApp = angular
     'ui.router',
     'MDB.LoginController',
     'MDB.UserFactory',
-    'MDB.ContentController'
+    'MDB.ContentController',
+    'TestController',
+    'MainController',
+    'CreateController',
+    'DeckFactory'
   ]);
 
 myApp.config(function($stateProvider, $urlRouterProvider){
@@ -21,8 +25,31 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         'landing': {
           templateUrl: "partials/landing.html",
           controller: 'ContentController'
+        },
+        'home': {
+          templateUrl: "partials/main.html",
+          controller: 'MainController'
         }
       }
     })
 })
 
+//       templateUrl: "./partials/main.html",
+//       controller: "MainController"
+//     });
+
+//   $stateProvider
+//     .state('test', {
+//       url: "/test",
+//       templateUrl: "./partials/test.html",
+//       controller: "TestController"
+//     });
+
+//   $stateProvider
+//     .state('create', {
+//       url: "/create",
+//       templateUrl: "./partials/create.html",
+//       controller: "CreateController"
+//     });
+
+// });

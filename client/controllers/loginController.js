@@ -31,6 +31,12 @@ function LoginController($scope, UserFactory) {
     }
   };
 
+  $scope.logout = function() {
+    $scope.name = '';
+    $scope.loggedIn = $scope.logoutButton = false;
+    UserFactory.broadcast(false);
+  }
+
   //Toggled Login / Create text on nav.html
   $scope.textHandler = function() {
     if($scope.signupText) {
