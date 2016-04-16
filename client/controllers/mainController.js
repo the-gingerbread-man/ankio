@@ -3,11 +3,14 @@ angular
   .controller('MainController', MainController);
 
 
-function MainController($scope, DeckFactory) {
+function MainController($scope, DeckFactory, UserFactory) {
+  $scope.landingPage = UserFactory.login;
+  // $scope.decks = DeckFactory.getAllDecks();
 
-  $scope.decks = DeckFactory.getAllDecks();
-
-  $scope.setDeck = function(deckId) {
-    DeckFactory.setDeck(deckId);
-  }
+  // $scope.setDeck = function(deckId) {
+  //   DeckFactory.setDeck(deckId);
+  // }
+  $scope.$on('handleBroadcast', function(event, status) {
+    $scope.landingPage = status;
+  });
 }
