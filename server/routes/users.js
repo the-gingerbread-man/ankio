@@ -17,8 +17,8 @@ var User = connection.define('user', {
 router.post(function(req,res) {
 	connection.sync().then(function() {
 		User.create({
-			username: 'SOMEUSERNAME9',
-			password: 'SOMEPASSWORD9',
+			username: req.body.username,
+			password: req.body.password,
 		}).catch(function(error) {
 		// console.error(error);
 		});
@@ -29,7 +29,7 @@ router.post(function(req,res) {
 router.post(function(req,res) {
 		User.findAll({
 			where: {
-				username: aUserName, // username that user inputs on login
+				username: req.body.username, // username that user inputs on login
 			}
 		}).then(function(table) {
 		// if table.length(IF USERNAME DOESNT EXIST PLEASE SIGN UP)
