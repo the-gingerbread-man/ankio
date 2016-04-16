@@ -39,32 +39,28 @@ router.post(function(req,res) {
 // Alter successRate & displayCount as the user views the card
 // and when they get the correct answer
 router.post(function(req,res) {
-	function alterNumAndDisplayCounts(cardId, newNumCorrect, newDisplayCount) {
-		Cards.update({
-			numCorrect: newNumCorrect,
-			displayCount: newDisplayCount
-		}, {
-			where: {
-				id: cardId
-			}
-		});
-	}
+	Cards.update({
+		numCorrect: newNumCorrect,
+		displayCount: newDisplayCount
+	}, {
+		where: {
+			id: cardId
+		}
+	});
 });
 
 // INPUT: alterNumAndDisplayCounts(1, 50, 100);
 
 // user can edit their question and answer, changes will reflect in postgres
 router.post(function(req,res) {
-	function editRow(cardId, newQuestion, newAnswer) {
-		Cards.update({
-			question: newQuestion,
-			answer: newAnswer
-		}, {
-			where: {
-				id: cardId
-			}
-		});
-	}
+	Cards.update({
+		question: newQuestion,
+		answer: newAnswer
+	}, {
+		where: {
+			id: cardId
+		}
+	});
 });
 // INPUT CHANGES: editRow(7, "Derpdie derp", "Sherp sherp!");
 
@@ -85,13 +81,11 @@ router.post(function(req, res) {
 
 // delete card (row in cards)
 router.post(function(req,res) {
-	function deleteCard(cardId) {
 		Cards.destroy({
 			where: {
 				id: cardId
 			}
 		});
-	}
 });
 
 
