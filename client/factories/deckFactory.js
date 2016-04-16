@@ -8,9 +8,16 @@ function DeckFactory($http) {
 //    deck: {},
 
     createDeck: function(username, deckname) {
-      $http.post('/newDeck', {username, deckname})
-        .then(function(res));
+      $http.post('/decks/create', {
+        username: username,
+        deckname: deckname
+      }).then(function(res) {
+        console.log("response in factory", res);
+        return res.data;
+      });
     },
+
+    // addCard: functino()
 
     getAllDecks: function(user) {
       console.log("getAllDecks in DeckFactory");
