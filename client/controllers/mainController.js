@@ -5,6 +5,8 @@ angular
 
 function MainController($scope, DeckFactory) {
 
+  $scope.decks = DeckFactory.getAllDecks();
+
   $scope.setDeck = function(deckId) {
     DeckFactory.setDeck(deckId);
   }
