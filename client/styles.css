@@ -1,0 +1,90 @@
+* {
+  overflow: hidden;
+}
+/*Navbar*/
+.navbar-brand {
+  color: white !important;
+  text-decoration: none;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+  background-color: #348ac7;
+  border: none !important;
+}
+
+.nav li {
+  color: white;
+  float: left;
+  margin-left: 10px;
+}
+
+.nav input {
+  color: black !important;
+}
+
+.login-create-text {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+  border: 1px solid white;
+  width: 280px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.user-name {
+  color: white;
+}
+
+.logout-btn {
+  text-decoration: none;
+  color: white;
+}
+
+/*Jumbotron*/
+
+.jumbotron {
+  background-color: #348ac7;
+  padding: 80px 0 95px 0;
+  text-align: center;
+  height: 1000px;
+      background-image: -webkit-linear-gradient(top, #348ac7 0%, #83b8de 100%);
+    background-image: linear-gradient(to bottom, #348ac7 0%, #83b8de 100%);
+}
+
+#bootstrap-logo {
+  font-size: 108px;
+  color: #fff;
+  border: 1px solid #cdbfe3;
+  height: 144px;
+  width: 144px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px;
+  line-height: 140px;
+}
+
+.jumbotron #jumbo-text {
+  padding: 30px 0;
+  color: #fff;
+  font-size: 30px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.jumbotron #download-bootstrap {
+  border: 1px solid #cdbfe3;
+  border-radius: 5px;
+  padding: 14px 30px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 20px;
+}
+
+.jumbotron #version-text {
+  padding-top: 15px;
+  color: white;
+  font-size: 14px;
+}
