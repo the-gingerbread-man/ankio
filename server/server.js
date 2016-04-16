@@ -35,7 +35,7 @@ app.listen(port, function() {
 */
 
 
-/* 	This is for the algorithim: 
+/* 	This is for the algorithim:
 	+ Keep track of right and wrong and add wrongs to a reviewArr
 		+ Every time the next button is clicked increment to currentCard++
 			+ if correct++
