@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const path = require('path');
 const Sequelize = require('sequelize');
 const users = require('./routes/users');
@@ -10,6 +11,8 @@ const connection = new Sequelize('potato', 'potato123', '123', {
   dialect: 'postgres',
 });
 
+
+app.use(bodyParser.json());
 app.use('/users', users);
 app.use('/decks', decks);
 app.use('/cards', cards);

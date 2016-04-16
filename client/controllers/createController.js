@@ -2,6 +2,8 @@ angular
   .module('CreateController', ['ui.router'])
   .controller('CreateController', CreateController);
 
-function CreateController($scope, DeckService) {
-  
+function CreateController($scope, DeckFactory) {
+
+
+
 }
