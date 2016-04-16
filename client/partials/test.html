@@ -6,6 +6,8 @@
 <div id="card-nav">
   <button ng-click="prevCard()">Previous</button>
   <button ng-click="flipCard()">Flip</button>
-  <button ng-click="nextCard()">Next</button>
+  <button ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('N')">Incorrect</button>
+  <button ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('Y')">Correct</button>
+  <button ng-attr-btn-view="{{ showQ }}" ng-click="nextCard(null)">Next</button>
 </div>
-<a ui-sref="home">Home</a>
+<a ui-sref="home" ng-click="logResults()">Home</a>

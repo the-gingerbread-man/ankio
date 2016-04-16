@@ -1,32 +1,13 @@
-<div id="deckTable">
+<div id="deckTable" ng-init="decks=[{id: 1, name: 'Animals', description: 'Different types of pets'}, {id: 2, name: 'Countries', description: 'Countries of the world'}, {id: 3, name: 'Food', description: 'Recipes from cookbook'}]">
+  <h1>--{{ fake }}--</h1>
   <ul>
     <li>
       <span class="deckName">Deck Name</span>
       <span class="desc">This is a description of the deck</span>
     </li>
-    <li>
-      <div class="deckName" ng-click="loadDeck()">Animals</div>
-      <span class="desc">Different types of pets</span>
-    </li>
-    <li>
-      <a class="deckName" ui-sref="test">Countries</a>
-      <span class="desc">Countries of the world</span>
-    </li>
-    <li>
-      <a class="deckName" ui-sref="test">Food</a>
-      <span class="desc">Recipes from cookbook</span>
-    </li>
-    <li>
-      <a class="deckName" ui-sref="test">TV Shows</a>
-      <span class="desc">Sitcoms of the 80s</span>
-    </li>
-    <li>
-      <a class="deckName" ui-sref="test">Quantum Physics</a>
-      <span class="desc">Just for fun</span>
-    </li>
-    <!-- <li ng-repeat='deck in decks'>
-      <a class="deckName" ui-sref="test">{{ deck.name }}</a>
+    <li ng-repeat='deck in decks'>
+      <div class="deckName" ng-click="setDeck(deck.id)">{{ deck.name }}</div>
       <span class="desc">{{ deck.description }}</span>
-    </li> -->
+    </li> 
   </ul>
 </div>

@@ -57,6 +57,14 @@ li {
   text-align: center;
 }
 
+[btn-view="true"] {
+  display: normal;
+}
+
+[btn-view="false"] {
+  display: none;
+}
+
 .container {
   position: relative;
   margin: 0 auto;

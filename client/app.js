@@ -3,7 +3,8 @@ var myApp = angular
     'ui.router',
     'TestController',
     'MainController',
-    'CreateController'
+    'CreateController',
+    'DeckService'
   ]);
 
 

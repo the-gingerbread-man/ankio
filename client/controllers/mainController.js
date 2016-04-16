@@ -3,9 +3,11 @@ angular
   .controller('MainController', MainController);
 
 
-function MainController($scope) {
+function MainController($scope, DeckService) {
 
-  $scope.loadDeck() = function() {
-    
+  $scope.setDeck = function(deckId) {
+    $scope.fake = deckId;
+//    DeckService.setDeck($scope.deck);
   }
 }
+
