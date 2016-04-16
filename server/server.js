@@ -16,6 +16,7 @@ app.use('/cards', cards);
 
 app.use(express.static(path.join(__dirname, './../client/')));
 
+// render index page
 app.get('/', function(req,res){
   res.sendFile(path.join(__dirname + './../client/index.html'));
 })

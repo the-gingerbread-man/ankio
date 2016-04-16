@@ -68,6 +68,21 @@ router.post(function(req,res) {
 });
 // INPUT CHANGES: editRow(7, "Derpdie derp", "Sherp sherp!");
 
+// read all cards in 1 deck
+router.post(function(req, res) {
+	// console.log(req.body);
+	Cards.findAll({
+		where: {
+			deckId: deckId
+		}
+	}).then(function(decksObj) {
+		console.log(decksObj)
+		// res.send()
+	}).catch(function(error) {
+		console.error(error);
+	});
+});
+
 // delete card (row in cards)
 router.post(function(req,res) {
 	function deleteCard(cardId) {
