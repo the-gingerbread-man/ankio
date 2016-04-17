@@ -26,7 +26,9 @@ router.post('/create', function(req,res) {
 			answer: res.body.answer,
 			numCorrect: 0,
 			displayCount: 0
-	  }).catch(function(error) {
+	  }).then(function(newCard) {
+      res.send(newCard);
+    }).catch(function(error) {
 		  console.error(error);
 		});
 	});
