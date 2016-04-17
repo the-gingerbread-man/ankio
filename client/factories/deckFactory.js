@@ -17,7 +17,16 @@ function DeckFactory($http) {
       });
     },
 
-    // addCard: functino()
+    addCard: function(dId, ques, ans) {
+      $http.post('/cards/create', {
+        deckId: dId,
+        question: ques,
+        answer: ans
+      }).then(function(res) {
+        console.log("response in factory", res);
+        return res.data;
+      });
+    },
 
     getAllDecks: function(user) {
       console.log("getAllDecks in DeckFactory");
