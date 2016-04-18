@@ -3,8 +3,9 @@ angular
   .controller('MainController', MainController);
 
 
-function MainController($scope, $state, DeckFactory) {
+function MainController($scope, $state, DeckFactory, UserFactory) {
 
+  $scope.landingPage = UserFactory.login;
   //  Retrieves an array of the user's decks from the factory
   $scope.getAllDecks = function() {
     DeckFactory.getAllDecks()
@@ -20,7 +21,12 @@ function MainController($scope, $state, DeckFactory) {
         $state.go('test');
     });
   }
+  
+  $scope.$on('handleBroadcast', function(event, status) {
+    $scope.landingPage = status;
+  });
 
   //  Initialize view
   $scope.getAllDecks();
+
 }

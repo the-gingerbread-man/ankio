@@ -1,4 +1,10 @@
-<div id="deckTable">
+<!--
+    <<<<<<< HEAD
+    <div id="deckTable">
+
+    =======
+-->
+<div ng-show="landingPage" id="deckTable">
   <h1 ng-click="log()">--Title--</h1>
   <a ui-sref="create">Create new deck</a>
   <ul>
@@ -9,6 +15,6 @@
     <li ng-repeat='deck in decks'>
       <div class="deckName link" ng-click="setDeck($index)">{{ deck.deckname }}</div>
       <span class="desc">{{ deck.description }}</span>
-    </li> 
+    </li>
   </ul>
 </div>
