@@ -10,7 +10,7 @@ const decks = require('./routes/decks');
 const cards = require('./routes/cards');
 
 app.use(express.static(path.join(__dirname, './../client')));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Routes

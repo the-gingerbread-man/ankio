@@ -24,7 +24,7 @@ function DeckFactory($http, $q) {
       deck = res.data;
       return res.data;
     });
-  }
+  };
 
   //  Add a card to the current deck in the database
   factory.addCard = function(ques, ans) {
@@ -35,7 +35,7 @@ function DeckFactory($http, $q) {
     }).then(function(res) {
       return res.data;
     });
-  }
+  };
 
   //  Retrieve all decks for the logged in user and store in factory
   //  FIXME: Username of "Bob" is currently hard-coded in for testing
@@ -50,7 +50,7 @@ function DeckFactory($http, $q) {
       allDecks.reject('Error');
     });
     return allDecks.promise;
-  }
+  };
 
   //  Retrieve all cards in the current deck and store in factory
   factory.setDeck = function(index) {
@@ -58,23 +58,23 @@ function DeckFactory($http, $q) {
     var allCards = $q.defer();
     $http.post('/cards/read', {deckId: deck.id})
       .success(function(data) {
-      cardsInDeck = data;
-      allCards.resolve(data);
-    }).error(function(err) {
+        cardsInDeck = data;
+        allCards.resolve(data);
+      }).error(function(err) {
       allCards.reject('There was an error loading all cards');
     });
     return allCards.promise;  //  This return may not be necessary
-  }
+  };
 
   //  Returns the name of the current deck
   factory.getDeckname = function() {
     return deck.deckname;
-  }
+  };
 
   //  Returns the cards in the current deck
   factory.loadDeck = function() {
     return cardsInDeck;
-  }
+  };
 
   return factory;
 }
