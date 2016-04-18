@@ -37,6 +37,8 @@ function LoginController($scope, UserFactory) {
     $scope.name = '';
     $scope.loggedIn = $scope.logoutButton = false;
     UserFactory.broadcast('landing');
+    $scope.name = '';
+    $scope.password = '';
   };
 
   // Toggled Login / Create text on nav.html

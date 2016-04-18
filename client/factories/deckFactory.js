@@ -17,6 +17,7 @@ function DeckFactory($http, $q) {
 
   //  Create a new deck in database
   factory.createDeck = function(username, deckname) {
+    console.log('CreateDeck: ' ,username);
     $http.post('/decks/create', {
       username: username,
       deckname: deckname
