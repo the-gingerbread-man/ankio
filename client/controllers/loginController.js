@@ -10,14 +10,14 @@ function LoginController($scope, UserFactory) {
   $scope.loggedIn = false;
   $scope.logoutButton = false;
 
-  //Find the User in the Database through user.js routes
-  //If $scope.loginText is true - User will log in
-  //Otherwise a new user will be created
-  $scope.login = function() {
-    if($scope.loginText) {
-      UserFactory.fetch($scope.username, $scope.password).success(function(user) {
-        if(user === 'error') {
-          $scope.errorText = 'User/Password is incorrect.'
+  // Find the User in the Database through user.js routes
+  // If $scope.loginText is true - User will log in
+  // Otherwise a new user will be created
+  $scope.login = function () {
+    if ($scope.loginText) {
+      UserFactory.fetch($scope.username, $scope.password).success(function (user) {
+        if (user === 'error') {
+          $scope.errorText = 'User/Password is incorrect.';
         } else {
           $scope.name = 'Hello ' + user;
           $scope.loggedIn = $scope.logoutButton = true;
@@ -32,16 +32,16 @@ function LoginController($scope, UserFactory) {
   };
 
 
-  //Logs out user by using broadcast to change the view
-  $scope.logout = function() {
+  // Logs out user by using broadcast to change the view
+  $scope.logout = function () {
     $scope.name = '';
     $scope.loggedIn = $scope.logoutButton = false;
     UserFactory.broadcast('landing');
-  }
+  };
 
-  //Toggled Login / Create text on nav.html
-  $scope.textHandler = function() {
-    if($scope.signupText) {
+  // Toggled Login / Create text on nav.html
+  $scope.textHandler = function () {
+    if ($scope.signupText) {
       $scope.signupText = '';
       $scope.loginText = 'Logging in - Click here to create an account.';
     } else {
