@@ -21,11 +21,13 @@ function MainController($scope, $state, DeckFactory, UserFactory) {
     });
   }
 
+
+  //Broadcasts page on click
   $scope.currentDeck = function() {
     UserFactory.broadcast('currentDeck');
   }
 
-
+  //Receives broadcast
   $scope.$on('handleBroadcast', function(event, status) {
     $scope.currentView = status;
   });

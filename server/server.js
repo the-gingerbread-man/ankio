@@ -28,20 +28,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, function() {
 	console.log("Listening on port 3000");
 });
-
-
-/*
-	Deletes all data in table, use with caution or just use drop table TABLENAMEHERE in postgres:
-	connection.sync({
-		force: true,
-		logging: console.log
-	})
-*/
-
-
-/* 	This is for the algorithim:
-	+ Keep track of right and wrong and add wrongs to a reviewArr
-		+ Every time the next button is clicked increment to currentCard++
-			+ if correct++
-			+ if wrong++
-*/
