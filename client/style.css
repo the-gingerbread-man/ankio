@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #089de3;
+  background: #fefefe;
 }
 
 .later {
@@ -25,7 +25,15 @@ li {
 
 .deckName {
   float: left;
-  width: 100px;
+  width: 200px;
+}
+
+.link {
+  color: #089de3;
+}
+
+.link:hover {
+  font-weight: bold;
 }
 
 .desc {

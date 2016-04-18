@@ -1,13 +1,13 @@
-<h1 id="deckTitle">{{ deckName }}</h1>
+<h2 id="deckTitle">{{ deckName }}</h2>
 <div id="card" ui-view>
   <h5 id="cardSide">{{ cardSide }}</h5>
   <h1 id="cardText">{{ showText }}</h1>
 </div>
 <div id="card-nav">
-  <button ng-click="prevCard()">Previous</button>
-  <button ng-click="flipCard()">Flip</button>
-  <button ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('N')">Incorrect</button>
-  <button ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('Y')">Correct</button>
-  <button ng-attr-btn-view="{{ showQ }}" ng-click="nextCard(null)">Next</button>
+  <div class='btn' ng-click="prevCard()">Previous</div>
+  <div class='btn' ng-click="flipCard()">Flip</div>
+  <div class='btn' ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('N')">Incorrect</div>
+  <div class='btn' ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('Y')">Correct</div>
+  <div class='btn' ng-attr-btn-view="{{ showQ }}" ng-click="nextCard(null)">Next</div>
 </div>
-<a ui-sref="home" ng-click="logResults()">Home</a>
+<a ui-sref="home">Home</a>
