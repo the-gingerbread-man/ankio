@@ -2,47 +2,79 @@ angular
   .module('DeckFactory', ['ui.router'])
   .factory('DeckFactory', DeckFactory);
 
-function DeckFactory($http) {
-  return {
-    deck: {id: 1, username: "Bob", title: "Cat Facts", description: "Fun things about felines"},
+function DeckFactory($http, $q) {
 
-    // createDeck: function(username, deckname) {
-    //   $http.post('/decks/create', {
-    //     username: username,
-    //     deckname: deckname
-    //   }).then(function(res) {
-    //     console.log("response in factory", res);
-    //     return res.data;
-    //   });
-    // },
+  var factory = {};
 
-    // addCard: function(dId, ques, ans) {
-    //   $http.post('/cards/create', {
-    //     deckId: dId,
-    //     question: ques,
-    //     answer: ans
-    //   }).then(function(res) {
-    //     console.log("response in factory", res);
-    //     return res.data;
-    //   });
-    // },
+  //  All decks belonging to the logged in user
+  var userDecks = [];
 
-    // getAllDecks: function(user) {
-    //   console.log("getAllDecks in DeckFactory");
-    //   $http.post('/decks', {username: "Bob"});
-    //     .then(function(res) {
-    //       this.userDecks = res.body;
-    //     });
-    // },
+  //  The current deck of cards selected for test
+  var deck = {};
 
-    // setDeck: function(deckId) {
-    //   // this.deck = $http.post('/decks', { });
-    // },
-    loadDeck: function() {
-      return this.deck;
-    },
-    // saveDeck: function(deck) {
-    //   console.log(deck);
-    // }
+  //  The cards in the current deck
+  var cardsInDeck = [];
+
+  //  Create a new deck in database
+  factory.createDeck = function(username, deckname) {
+    $http.post('/decks/create', {
+      username: username,
+      deckname: deckname
+    }).then(function(res) {
+      deck = res.data;
+      return res.data;
+    });
   }
+
+  //  Add a card to the current deck in the database
+  factory.addCard = function(ques, ans) {
+    $http.post('/cards/create', {
+      deckId: deck.id,
+      question: ques,
+      answer: ans
+    }).then(function(res) {
+      return res.data;
+    });
+  }
+
+  //  Retrieve all decks for the logged in user and store in factory
+  //  FIXME: Username of "Bob" is currently hard-coded in for testing
+  factory.getAllDecks = function(user) {
+    var allDecks = $q.defer();
+    $http.post(
+      '/decks', {username: "Bob"}
+    ).success(function(data) {
+      userDecks = data;
+      allDecks.resolve(data);
+    }).error(function(err) {
+      allDecks.reject('Error');
+    });
+    return allDecks.promise;
+  }
+
+  //  Retrieve all cards in the current deck and store in factory
+  factory.setDeck = function(index) {
+    deck = userDecks[index];
+    var allCards = $q.defer();
+    $http.post('/cards/read', {deckId: deck.id})
+      .success(function(data) {
+      cardsInDeck = data;
+      allCards.resolve(data);
+    }).error(function(err) {
+      allCards.reject('There was an error loading all cards');
+    });
+    return allCards.promise;  //  This return may not be necessary
+  }
+
+  //  Returns the name of the current deck
+  factory.getDeckname = function() {
+    return deck.deckname;
+  }
+
+  //  Returns the cards in the current deck
+  factory.loadDeck = function() {
+    return cardsInDeck;
+  }
+
+  return factory;
 }

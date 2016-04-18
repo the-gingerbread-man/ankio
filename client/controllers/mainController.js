@@ -3,24 +3,41 @@ angular
   .controller('MainController', MainController);
 
 
-function MainController($scope, DeckFactory, UserFactory) {
+function MainController($scope, $state, DeckFactory, UserFactory) {
   $scope.currentView = 'createdDecks';
+  //  Retrieves an array of the user's decks from the factory
+  $scope.getAllDecks = function() {
+    DeckFactory.getAllDecks()
+      .then(function(result) {
+        $scope.decks = result;
+    });
+  }
 
-  // $scope.decks = DeckFactory.getAllDecks();
+  //  Select new deck to load into factory, then redirect to test page
+  $scope.setDeck = function(index) {
+    DeckFactory.setDeck(index)
+      .then(function() {
+        $state.go('test');
+    });
+  }
+
+  $scope.currentDeck = function() {
+    UserFactory.broadcast('currentDeck');
+  }
+
+
   $scope.$on('handleBroadcast', function(event, status) {
     $scope.currentView = status;
   });
 
-  $scope.setDeck = function(deckId) {
-    // DeckFactory.setDeck(deckId);
-    $scope.currentView = '';
-    UserFactory.broadcast('currentDeck');
-  }
 
   $scope.createDeck = function() {
     // DeckFactory.setDeck(deckId);
     $scope.currentView = '';
     UserFactory.broadcast('createDeck');
   }
+
+  //  Initialize view
+  $scope.getAllDecks();
 
 }
