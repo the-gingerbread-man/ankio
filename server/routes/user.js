@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('potato', 'potato123', '123', {
+const sequelize = new Sequelize('template1', 'coffeeapp', 'capassword', {
   host: 'localhost',
   dialect: 'postgres',
 });

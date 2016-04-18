@@ -8,7 +8,8 @@ function CreateController($scope, $q, DeckFactory, UserFactory) {
   $scope.named = false;
 
   //  FIXME: Username should not be hard-coded in
-  $scope.username = 'Bob';
+  // $scope.username = 'Bob';
+  $scope.username = UserFactory.username;
   $scope.currentView = '';
   $scope.$on('handleBroadcast', function(event, status) {
     $scope.currentView = status;
@@ -20,9 +21,10 @@ function CreateController($scope, $q, DeckFactory, UserFactory) {
   };
   //  Add new deck to decks table in database
   $scope.createDeck = function() {
+    console.log(UserFactory);
     $scope.named = true;
-    DeckFactory.createDeck($scope.username, $scope.deckname);
-  };
+    DeckFactory.createDeck(UserFactory.username, $scope.deckname);
+  }
 
   //  Add new card to cards table in database
   $scope.addCard = function() {
