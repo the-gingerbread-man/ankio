@@ -9,50 +9,50 @@ const connection = new Sequelize('potato', 'potato123', '123', {
 
 // deck tables
 var Decks = connection.define('decks', {
-	username: Sequelize.STRING,
-	deckname: Sequelize.STRING,
-})
+	  username: Sequelize.STRING,
+	  deckname: Sequelize.STRING,
+});
 
 // create a new deck, insert into postgres
-router.post('/create', function(req,res) {
-	connection.sync().then(function() {
-		Decks.create({
-			username: req.body.username,
-			deckname: req.body.deckname
+router.post('/create', function(req, res) {
+	  connection.sync().then(function() {
+		  Decks.create({
+			  username: req.body.username,
+			  deckname: req.body.deckname
 		}).then(function(newDeck) {
-			res.send(newDeck);
+			  res.send(newDeck);
 		}).catch(function(error) {
-			 console.error(error);
-		})
+			   console.error(error);
+		});
 	});
 });
 
 // delete a deck
-router.post(function(req,res) {
-	Decks.destroy({
-		where: {
-			id: req.body.id
+router.post(function(req, res) {
+	  Decks.destroy({
+		  where: {
+			  id: req.body.id
 		}
 	});
 
-	Cards.findAll({
-		where: {
-			deckId: req.body.deckId
+	  Cards.findAll({
+		  where: {
+			  deckId: req.body.deckId
 		}
 	}).then(function(cards) {
-		cards.forEach(function(card) {
-			Cards.destroy({
-				where: {
-					id: card.id // ??
+		  cards.forEach(function(card) {
+			  Cards.destroy({
+				  where: {
+					  id: card.id // ??
 				}
-			})
-		})
-	})
+			});
+		});
+	});
 });
 
 // read all decks of 1 user
 router.post('/', function(req, res) {
-	console.log(req.body);
+	  console.log(req.body);
 	// Decks.findAll({
 	// 	where: {
 	// 		username: req.body.username

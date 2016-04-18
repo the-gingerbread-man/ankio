@@ -10,9 +10,9 @@ var myApp = angular
     'DeckFactory'
   ]);
 
-myApp.config(function($stateProvider, $urlRouterProvider){
+myApp.config(function($stateProvider, $urlRouterProvider) {
 
-  //If the user goes beyond the '/' route it will redirect them to '/'
+  // If the user goes beyond the '/' route it will redirect them to '/'
   $urlRouterProvider.otherwise('/');
 
   $stateProvider

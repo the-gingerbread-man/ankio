@@ -14,11 +14,11 @@ function TestController($scope, DeckFactory, UserFactory) {
   $scope.showQ = true;
   $scope.currentView = '';
 
-  $scope.$on('handleBroadcast', function (event, status) {
+  $scope.$on('handleBroadcast', function(event, status) {
     $scope.currentView = status;
   });
 
-  $scope.previousPage = function () {
+  $scope.previousPage = function() {
     $scope.currentView = '';
     UserFactory.broadcast('createdDecks');
   };
@@ -34,7 +34,7 @@ function TestController($scope, DeckFactory, UserFactory) {
 
   //  Display the appropriate question or answer
   //  'cardSide' is the text at the top of the card
-  $scope.showCard = function () {
+  $scope.showCard = function() {
     if ($scope.showQ) {
       $scope.cardSide = 'Question';
       $scope.showText = $scope.cards[$scope.index].question;
@@ -45,7 +45,7 @@ function TestController($scope, DeckFactory, UserFactory) {
   };
 
   //  Advance the card when user selects 'next', 'correct', or 'incorrect'
-  $scope.nextCard = function (correct) {
+  $scope.nextCard = function(correct) {
 
     //  TODO: Set up functionality of scoring progress
     if (correct === 'Y') $scope.cards[$scope.index].numCorrect++;
@@ -61,7 +61,7 @@ function TestController($scope, DeckFactory, UserFactory) {
   };
 
   //  Change index to previous card. This currently assumes cards are in order
-  $scope.prevCard = function () {
+  $scope.prevCard = function() {
     if ($scope.index - 1 < 0) $scope.index = $scope.numCards - 1;
     else --$scope.index;
     $scope.showQ = true;
@@ -69,15 +69,15 @@ function TestController($scope, DeckFactory, UserFactory) {
   };
 
   //  Alternate between question and answer
-  $scope.flipCard = function () {
+  $scope.flipCard = function() {
     $scope.showQ = !$scope.showQ;
     $scope.showCard();
   };
 
   //  TODO: This function has not been implemented. It should update the database with
   //  the user's performance details
-  $scope.logCards = function () {
-    $scope.cards.forEach(function (card) {
+  $scope.logCards = function() {
+    $scope.cards.forEach(function(card) {
       DeckFactory.updateScore(card.id, card.numCorrect, card.displayCount);
     });
   };
