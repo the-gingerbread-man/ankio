@@ -4,13 +4,23 @@ angular
 
 
 function MainController($scope, DeckFactory, UserFactory) {
-  $scope.landingPage = UserFactory.login;
-  // $scope.decks = DeckFactory.getAllDecks();
+  $scope.currentView = 'createdDecks';
 
-  // $scope.setDeck = function(deckId) {
-  //   DeckFactory.setDeck(deckId);
-  // }
+  // $scope.decks = DeckFactory.getAllDecks();
   $scope.$on('handleBroadcast', function(event, status) {
-    $scope.landingPage = status;
+    $scope.currentView = status;
   });
+
+  $scope.setDeck = function(deckId) {
+    // DeckFactory.setDeck(deckId);
+    $scope.currentView = '';
+    UserFactory.broadcast('currentDeck');
+  }
+
+  $scope.createDeck = function() {
+    // DeckFactory.setDeck(deckId);
+    $scope.currentView = '';
+    UserFactory.broadcast('createDeck');
+  }
+
 }

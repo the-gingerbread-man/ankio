@@ -2,10 +2,20 @@ angular
   .module('CreateController', ['ui.router'])
   .controller('CreateController', CreateController);
 
-function CreateController($scope, $q, DeckFactory) {
+function CreateController($scope, $q, DeckFactory, UserFactory) {
   $scope.username = 'Bob';
+  $scope.currentView = '';
   var thePromise = $q.defer();
   $scope.deck = thePromise.promise;
+
+  $scope.$on('handleBroadcast', function(event, status) {
+    $scope.currentView = status;
+  });
+
+  $scope.previousPage = function () {
+    $scope.currentView = '';
+    UserFactory.broadcast('createdDecks');
+  }
 
   $scope.createDeck = function() {
     console.log("function called in controller", $scope.username, $scope.deckname);

@@ -1,4 +1,4 @@
-<div ng-show="landingPage" id="deckTable" ng-init="decks=[{id: 1, name: 'Animals', description: 'Different types of pets'}, {id: 2, name: 'Countries', description: 'Countries of the world'}, {id: 3, name: 'Food', description: 'Recipes from cookbook'}]">
+<div ng-show="currentView === 'createdDecks'" id="deckTable" ng-init="decks=[{id: 1, name: 'Animals', description: 'Different types of pets'}, {id: 2, name: 'Countries', description: 'Countries of the world'}, {id: 3, name: 'Food', description: 'Recipes from cookbook'}]">
   <h1>--{{ fake }}--</h1>
   <ul>
     <li>
@@ -10,4 +10,5 @@
       <span class="desc">{{ deck.description }}</span>
     </li>
   </ul>
+  <button ng-click="createDeck()">Create a Deck</button>
 </div>

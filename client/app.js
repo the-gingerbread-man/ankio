@@ -29,6 +29,14 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         'home': {
           templateUrl: "partials/main.html",
           controller: 'MainController'
+        },
+        'test': {
+          templateUrl: "partials/test.html",
+          controller: 'TestController'
+        },
+        'create': {
+          templateUrl: "partials/create.html",
+          controller: 'CreateController'
         }
       }
     })
