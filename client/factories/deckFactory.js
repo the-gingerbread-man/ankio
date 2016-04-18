@@ -3,15 +3,15 @@ angular
   .factory('DeckFactory', DeckFactory);
 
 function DeckFactory($http, $q) {
-  
+
   var factory = {};
-  
+
   //  All decks belonging to the logged in user
   var userDecks = [];
-  
+
   //  The current deck of cards selected for test
   var deck = {};
-  
+
   //  The cards in the current deck
   var cardsInDeck = [];
 
@@ -65,12 +65,12 @@ function DeckFactory($http, $q) {
     });
     return allCards.promise;  //  This return may not be necessary
   }
-  
+
   //  Returns the name of the current deck
   factory.getDeckname = function() {
     return deck.deckname;
   }
-  
+
   //  Returns the cards in the current deck
   factory.loadDeck = function() {
     return cardsInDeck;

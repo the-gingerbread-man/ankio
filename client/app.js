@@ -12,6 +12,7 @@ var myApp = angular
 
 myApp.config(function($stateProvider, $urlRouterProvider){
 
+  //If the user goes beyond the '/' route it will redirect them to '/'
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
@@ -29,30 +30,15 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         'home': {
           templateUrl: "partials/main.html",
           controller: 'MainController'
+        },
+        'test': {
+          templateUrl: "partials/test.html",
+          controller: 'TestController'
+        },
+        'create': {
+          templateUrl: "partials/create.html",
+          controller: 'CreateController'
         }
       }
     });
-
-//  $stateProvider
-//   .state('home', {
-//     url: "/",
-//     templateUrl: "./partials/main.html",
-//     controller: 'MainController'
-//   });
-//  
-//  $stateProvider
-//     .state('test', {
-//       url: "/test",
-//       templateUrl: "./partials/test.html",
-//       controller: "TestController"
-//     });
-//
-//   $stateProvider
-//     .state('create', {
-//       url: "/create",
-//       templateUrl: "./partials/create.html",
-//       controller: "CreateController"
-//     });
-
-  
 });

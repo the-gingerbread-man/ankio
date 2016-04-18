@@ -21,7 +21,7 @@ function LoginController($scope, UserFactory) {
         } else {
           $scope.name = 'Hello ' + user;
           $scope.loggedIn = $scope.logoutButton = true;
-          UserFactory.broadcast(true);
+          UserFactory.broadcast('createdDecks');
         }
       });
     } else {
@@ -31,10 +31,12 @@ function LoginController($scope, UserFactory) {
     }
   };
 
+
+  //Logs out user by using broadcast to change the view
   $scope.logout = function() {
     $scope.name = '';
     $scope.loggedIn = $scope.logoutButton = false;
-    UserFactory.broadcast(false);
+    UserFactory.broadcast('landing');
   }
 
   //Toggled Login / Create text on nav.html

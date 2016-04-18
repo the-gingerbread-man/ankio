@@ -2,26 +2,35 @@ angular
   .module('TestController', ['ui.router'])
   .controller('TestController', TestController);
 
+function TestController($scope, DeckFactory, UserFactory) {
 
-function TestController($scope, DeckFactory) {
-  
   //  The text to display on the card
   $scope.showText;
-  
+
   //  The index of the current displayed card in deck
   $scope.index = 0;
-  
+
   //  True when question is to be shown; false for answer
   $scope.showQ = true;
-  
-  //  Retrieve array of cards and deck name from factory and display first question
-  $scope.getCards = function() {
-    $scope.cards = DeckFactory.loadDeck();
-    $scope.deckName = DeckFactory.getDeckname();
-    $scope.numCards = $scope.cards.length;
-    $scope.showText = $scope.cards[$scope.index].question;
-    $scope.showCard();    
+  $scope.currentView = '';
+
+  $scope.$on('handleBroadcast', function(event, status) {
+    $scope.currentView = status;
+  });
+
+  $scope.previousPage = function() {
+    $scope.currentView = '';
+    UserFactory.broadcast('createdDecks');
   }
+
+  //  Retrieve array of cards and deck name from factory and display first question
+  // $scope.getCards = function() {
+  //   $scope.cards = DeckFactory.loadDeck();
+  //   $scope.deckName = DeckFactory.getDeckname();
+  //   $scope.numCards = $scope.cards.length;
+  //   // $scope.showText = $scope.cards[$scope.index].question;
+  //   $scope.showCard();
+  // }
 
   //  Display the appropriate question or answer
   //  'cardSide' is the text at the top of the card
@@ -37,7 +46,7 @@ function TestController($scope, DeckFactory) {
 
   //  Advance the card when user selects 'next', 'correct', or 'incorrect'
   $scope.nextCard = function(correct) {
-    
+
     //  TODO: Set up functionality of scoring progress
     if (correct === "Y") $scope.cards[$scope.index].numCorrect++;
     if (correct === "Y" || correct === "N") $scope.cards[$scope.index].displayCount++;
@@ -74,6 +83,5 @@ function TestController($scope, DeckFactory) {
   }
 
   //  Initialize the create page by calling the getCards function
-  $scope.getCards();
-
+  // $scope.getCards();
 }

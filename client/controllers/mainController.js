@@ -4,8 +4,7 @@ angular
 
 
 function MainController($scope, $state, DeckFactory, UserFactory) {
-
-  $scope.landingPage = UserFactory.login;
+  $scope.currentView = 'createdDecks';
   //  Retrieves an array of the user's decks from the factory
   $scope.getAllDecks = function() {
     DeckFactory.getAllDecks()
@@ -21,10 +20,24 @@ function MainController($scope, $state, DeckFactory, UserFactory) {
         $state.go('test');
     });
   }
-  
+
+
+  //Broadcasts page on click
+  $scope.currentDeck = function() {
+    UserFactory.broadcast('currentDeck');
+  }
+
+  //Receives broadcast
   $scope.$on('handleBroadcast', function(event, status) {
-    $scope.landingPage = status;
+    $scope.currentView = status;
   });
+
+
+  $scope.createDeck = function() {
+    // DeckFactory.setDeck(deckId);
+    $scope.currentView = '';
+    UserFactory.broadcast('createDeck');
+  }
 
   //  Initialize view
   $scope.getAllDecks();
