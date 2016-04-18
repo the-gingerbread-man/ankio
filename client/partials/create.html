@@ -1,11 +1,17 @@
-<h1>Add Cards</h1>
-<h3>Deck: {{ deckname }}</h3>
 <div class="container">
-  <input type="text" ng-model="deckname">
-  <button ng-click="createDeck()">Create Deck</button>
-  <p>Question</p>
-  <textarea ng-model="newQ"></textarea>
-  <p>Answer</p>
-  <textarea ng-model="newA"></textarea>
-  <button ng-click="addCard()">Add Card</button>
+  <div ng-attr-btn-view="{{ !named }}">
+    <h2>Name your new deck</h2>
+    <input type="text" placeholder="Deck name" ng-model="deckname">
+    <button ng-click="createDeck()">Create Deck</button>
+  </div>
+  <div ng-attr-btn-view="{{ named }}">
+    <h2>{{ deckname }}</h2>
+    <h3>Add cards</h3>
+    <p>Question</p>
+    <textarea ng-model="newQ"></textarea>
+    <p>Answer</p>
+    <textarea ng-model="newA"></textarea>
+    <button ng-click="addCard()">Add Card</button>
+  </div>
 <div>
+<a ui-sref="home">Home</a>

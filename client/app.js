@@ -31,20 +31,22 @@ myApp.config(function($stateProvider, $urlRouterProvider){
           controller: 'MainController'
         }
       }
-    })
-})
+    });
 
-//       templateUrl: "./partials/main.html",
-//       controller: "MainController"
-//     });
-
-//   $stateProvider
+//  $stateProvider
+//   .state('home', {
+//     url: "/",
+//     templateUrl: "./partials/main.html",
+//     controller: 'MainController'
+//   });
+//  
+//  $stateProvider
 //     .state('test', {
 //       url: "/test",
 //       templateUrl: "./partials/test.html",
 //       controller: "TestController"
 //     });
-
+//
 //   $stateProvider
 //     .state('create', {
 //       url: "/create",
@@ -52,4 +54,5 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 //       controller: "CreateController"
 //     });
 
-// });
+  
+});

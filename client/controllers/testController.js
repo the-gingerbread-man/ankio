@@ -4,65 +4,76 @@ angular
 
 
 function TestController($scope, DeckFactory) {
-  // $scope.showText;
-  // $scope.index = 0;
-  // $scope.showQ = true;
-  // $scope.nextButton = "Next";
+  
+  //  The text to display on the card
+  $scope.showText;
+  
+  //  The index of the current displayed card in deck
+  $scope.index = 0;
+  
+  //  True when question is to be shown; false for answer
+  $scope.showQ = true;
+  
+  //  Retrieve array of cards and deck name from factory and display first question
+  $scope.getCards = function() {
+    $scope.cards = DeckFactory.loadDeck();
+    $scope.deckName = DeckFactory.getDeckname();
+    $scope.numCards = $scope.cards.length;
+    $scope.showText = $scope.cards[$scope.index].question;
+    $scope.showCard();    
+  }
 
-  // $scope.getCards = function() {
-  //   $scope.deck = DeckFactory.loadDeck();
-  //   $scope.deckName = $scope.deck.title;
-  //   //  DeckFactory is a placeholder for a model from Masha
-  //   // DeckFactory.fetch().success(function(cards) {
-  //     var cards = [{Q: "How are you?", A: "Very well, thank you"}, {Q: "How's the weather?", A: "Sunny"},
-  //       {Q: "What's for dinner?", A: "Knowing you...pork"}, {Q: "Was that sarcastic?", A: "Of course not...*rolls eyes*"}];
-  //   $scope.cards = cards;
-  //   $scope.numCards = cards.length;
-  //   $scope.showText = $scope.cards[$scope.index].Q;
-  //   $scope.cardSide = "Question";
-  //   // });
-  // }
+  //  Display the appropriate question or answer
+  //  'cardSide' is the text at the top of the card
+  $scope.showCard = function() {
+    if ($scope.showQ) {
+      $scope.cardSide = "Question";
+      $scope.showText = $scope.cards[$scope.index].question;
+    } else {
+      $scope.cardSide = "Answer";
+      $scope.showText = $scope.cards[$scope.index].answer;
+    }
+  }
 
-  // $scope.showCard = function() {
-  //   if ($scope.showQ) {
-  //     $scope.cardSide = "Question";
-  //     $scope.showText = $scope.cards[$scope.index].Q;
-  //   } else {
-  //     $scope.cardSide = "Answer";
-  //     $scope.showText = $scope.cards[$scope.index].A;
-  //   }
-  // }
+  //  Advance the card when user selects 'next', 'correct', or 'incorrect'
+  $scope.nextCard = function(correct) {
+    
+    //  TODO: Set up functionality of scoring progress
+    if (correct === "Y") $scope.cards[$scope.index].numCorrect++;
+    if (correct === "Y" || correct === "N") $scope.cards[$scope.index].displayCount++;
 
-  // $scope.nextCard = function(correct) {
-  //   if (correct === "Y") $scope.cards[$scope.index].numCorrect++;
+    //  TODO: Randomize next card
+    if ($scope.index + 1 >= $scope.numCards) $scope.index = 0;
+    else ++$scope.index;
 
-  //   if (correct === "Y" || correct === "N") $scope.cards[$scope.index].displayCount++;
+    //  When next card is shown, text should be the question
+    $scope.showQ = true;
+    $scope.showCard();
+  }
 
-  //   if ($scope.index + 1 >= $scope.numCards) $scope.index = 0;
-  //   else ++$scope.index;
+  //  Change index to previous card. This currently assumes cards are in order
+  $scope.prevCard = function() {
+    if ($scope.index - 1 < 0) $scope.index = $scope.numCards - 1;
+    else --$scope.index;
+    $scope.showQ = true;
+    $scope.showCard();
+  }
 
-  //   $scope.showQ = true;
-  //   $scope.showCard('Q');
-  // }
+  //  Alternate between question and answer
+  $scope.flipCard = function() {
+    $scope.showQ = !$scope.showQ;
+    $scope.showCard();
+  }
 
-  // $scope.prevCard = function() {
-  //   if ($scope.index - 1 < 0) $scope.index = $scope.numCards - 1;
-  //   else --$scope.index;
-  //   $scope.showQ = true;
-  //   $scope.showCard('Q');
-  // }
+  //  TODO: This function has not been implemented. It should update the database with
+  //  the user's performance details
+  $scope.logCards = function() {
+    $scope.cards.forEach(function(card) {
+      DeckFactory.updateScore(card.id, card.numCorrect, card.displayCount);
+    });
+  }
 
-  // $scope.flipCard = function() {
-  //   $scope.showQ = !$scope.showQ;
-  //   $scope.showCard();
-  // }
-
-  // $scope.logCards = function() {
-  //   $scope.cards.forEach(function(card) {
-  //     DeckFactory.updateScore(card.id, card.numCorrect, card.displayCount);
-  //   });
-  // }
-
-  // $scope.getCards();
+  //  Initialize the create page by calling the getCards function
+  $scope.getCards();
 
 }
