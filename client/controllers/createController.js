@@ -11,13 +11,18 @@ function CreateController($scope, $q, DeckFactory, UserFactory) {
   // $scope.username = 'Bob';
   $scope.username = UserFactory.username;
   $scope.currentView = '';
-  $scope.$on('handleBroadcast', function(event, status) {
-    $scope.currentView = status;
+  // $scope.$on('handleBroadcast', function(event, status) {
+  //   $scope.currentView = status;
+  // });
+  DeckFactory.getAllDecks().then((data) => {
+    $scope.decks = data.data;
+    //console.log('scope decks',$scope.decks);
   });
+
 
   $scope.previousPage = function() {
     $scope.currentView = '';
-    UserFactory.broadcast('createdDecks');
+    // UserFactory.broadcast('createdDecks');
   };
   //  Add new deck to decks table in database
   $scope.createDeck = function() {

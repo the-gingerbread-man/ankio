@@ -2,7 +2,7 @@ angular
   .module('DeckFactory', ['ui.router'])
   .factory('DeckFactory', DeckFactory);
 
-function DeckFactory($http, $q) {
+function DeckFactory($http, $q, UserFactory) {
 
   var factory = {};
 
@@ -40,21 +40,41 @@ function DeckFactory($http, $q) {
 
   //  Retrieve all decks for the logged in user and store in factory
   //  FIXME: Username of "Bob" is currently hard-coded in for testing
+  // factory.getAllDecks = function(user) {
+  //   var allDecks = $q.defer();
+  //   $http.post(
+  //     '/decks', {username: user}
+  //   ).success(function(data) {
+  //     userDecks = data;
+  //     allDecks.resolve(data);
+  //   }).error(function(err) {
+  //     allDecks.reject('Error');
+  //   });
+  //   return allDecks.promise;
+  // };
+
   factory.getAllDecks = function(user) {
-    var allDecks = $q.defer();
-    $http.post(
-      '/decks', {username: "Bob"}
-    ).success(function(data) {
+    console.log('in get all decks', UserFactory.username);
+    var req = {
+     method: 'GET',
+     url: '/decks/getAll',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     data: {username: UserFactory.username}
+    }
+    return $http.get('/decks/getAll').success(function(data) {
       userDecks = data;
-      allDecks.resolve(data);
+        console.log(data);
     }).error(function(err) {
-      allDecks.reject('Error');
+      //allDecks.reject('Error');
     });
-    return allDecks.promise;
+    //return userDecks;
   };
 
   //  Retrieve all cards in the current deck and store in factory
   factory.setDeck = function(index) {
+    console.log('setdeck')
     deck = userDecks[index];
     var allCards = $q.defer();
     $http.post('/cards/read', {deckId: deck.id})

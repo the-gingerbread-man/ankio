@@ -17,9 +17,9 @@ function UserFactory($http, $rootScope) {
     return $http.post('/users/create', user);
   };
 
-  msgObj.broadcast = function(status) {
-    $rootScope.$broadcast('handleBroadcast', status);
-  };
+  // msgObj.broadcast = function(status) {
+  //   $rootScope.$broadcast('handleBroadcast', status);
+  // };
 
   return msgObj;
 }

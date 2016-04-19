@@ -51,18 +51,19 @@ router.post(function(req, res) {
 });
 
 // read all decks of 1 user
-router.post('/', function(req, res) {
-	  console.log(req.body);
-	// Decks.findAll({
-	// 	where: {
-	// 		username: req.body.username
-	// 	}
-	// }).then(function(decksObj) {
-	// 	console.log(decksObj)
-	// 	// res.send()
-	// }).catch(function(error) {
-	// 			 console.error(error);
-	// })
+router.get('/getAll', function(req, res) {
+    //console.log('yo');
+    console.log('router:',req.body);
+	Decks.findAll({
+    where: {
+      username: 'carlos'
+    }
+  }).then(function(decksObj) {
+		//console.log(decksObj)
+		res.send(decksObj)
+	}).catch(function(error) {
+				 console.error(error);
+	})
 });
 
 // INPUT: deleteDeck(32);

@@ -2,8 +2,15 @@ angular
   .module('TestController', ['ui.router'])
   .controller('TestController', TestController);
 
-function TestController($scope, DeckFactory, UserFactory) {
+function TestController($scope, $stateParams, DeckFactory, UserFactory) {
 
+  $scope.currentDeck;
+  DeckFactory.getAllDecks().then((data) => {
+    $scope.decks = data.data;
+    $scope.currentDeck = $scope.decks[$stateParams.id];
+  });
+
+  //console.log(DeckFactory);
   //  The text to display on the card
   $scope.showText;
 
@@ -14,15 +21,14 @@ function TestController($scope, DeckFactory, UserFactory) {
   $scope.showQ = true;
   $scope.currentView = '';
 
-  $scope.$on('handleBroadcast', function(event, status) {
-    $scope.currentView = status;
-  });
+  // $scope.$on('handleBroadcast', function(event, status) {
+  //   $scope.currentView = status;
+  // });
 
   $scope.previousPage = function() {
     $scope.currentView = '';
-    UserFactory.broadcast('createdDecks');
+    // UserFactory.broadcast('createdDecks');
   };
-
   //  Retrieve array of cards and deck name from factory and display first question
   // $scope.getCards = function() {
   //   $scope.cards = DeckFactory.loadDeck();

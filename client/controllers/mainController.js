@@ -24,7 +24,7 @@ function MainController($scope, $state, DeckFactory, UserFactory) {
 
   // Broadcasts page on click
   $scope.currentDeck = function() {
-    UserFactory.broadcast('currentDeck');
+    // UserFactory.broadcast('currentDeck');
   };
 
   // Receives broadcast
@@ -36,7 +36,7 @@ function MainController($scope, $state, DeckFactory, UserFactory) {
   $scope.createDeck = function() {
     // DeckFactory.setDeck(deckId);
     $scope.currentView = '';
-    UserFactory.broadcast('createDeck');
+    // UserFactory.broadcast('createDeck');
   };
 
   //  Initialize view
