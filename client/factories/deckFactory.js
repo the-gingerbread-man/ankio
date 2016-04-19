@@ -2,7 +2,7 @@ angular
   .module('DeckFactory', ['ui.router'])
   .factory('DeckFactory', DeckFactory);
 
-function DeckFactory($http, $q, UserFactory) {
+function DeckFactory($http, UserFactory) {
 
   var factory = {};
 
@@ -74,17 +74,19 @@ function DeckFactory($http, $q, UserFactory) {
 
   //  Retrieve all cards in the current deck and store in factory
   factory.setDeck = function(index) {
-    console.log('setdeck')
-    deck = userDecks[index];
-    var allCards = $q.defer();
-    $http.post('/cards/read', {deckId: deck.id})
-      .success(function(data) {
+    console.log('setdeck - param: ', index);
+    //deck = userDecks[index];
+    //var allCards = $q.defer();
+    // return $http.get('/cards/read').success(function(data) {
+    //     cardsInDeck = data;
+    //   }).error(function(err) {
+    // });
+    return $http.get('/cards/read', {
+      params: { id: index }
+    }).success(function(data) {
         cardsInDeck = data;
-        allCards.resolve(data);
       }).error(function(err) {
-      allCards.reject('There was an error loading all cards');
     });
-    return allCards.promise;  //  This return may not be necessary
   };
 
   //  Returns the name of the current deck

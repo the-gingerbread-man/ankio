@@ -16,11 +16,17 @@ var User = sequelize.define('user', {
 // Finds existing user in database after bcrypt hash
 router.post('/', function(req, res) {
   User.findOne({where: {username: req.body.username}}).then(function(item) {
-    var hashedPassword = bcrypt.hashSync(req.body.password, 10);
-    if (bcrypt.compareSync(req.body.password, item.dataValues.password)) {
-      res.send(req.body.username);
-    } else {
-      res.send('error');
+    if(item){
+      var hashedPassword = bcrypt.hashSync(req.body.password, 10);
+      if (bcrypt.compareSync(req.body.password, item.dataValues.password)) {
+        res.send(req.body.username);
+      } else {
+        console.log('error');
+        res.send('error');
+      }
+    }
+    else {
+      console.log('error');
     }
   });
 });

@@ -26,7 +26,10 @@ router.post('/create', function(req, res) {
 			  answer: req.body.answer,
 			  numCorrect: 0,
 			  displayCount: 0
-	  }).catch(function(error) {
+	  }).then(function(card) {
+  		res.send(card);
+      res.end();
+    }).catch(function(error) {
 		    console.error(error);
 		});
 	});
@@ -46,27 +49,29 @@ router.post('/update', function(req, res) {
 	});
 });
 
-// user can edit their question and answer, changes will reflect in postgres
-router.post(function(req, res) {
-	  Cards.update({
-		  question: req.body.question,
-		  answer: req.body.answer
-	}, {
-		  where: {
-			  id: req.body.id
-		}
-	});
-});
+// // user can edit their question and answer, changes will reflect in postgres
+// router.post(function(req, res) {
+// 	  Cards.update({
+// 		  question: req.body.question,
+// 		  answer: req.body.answer
+// 	}, {
+// 		  where: {
+// 			  id: req.body.id
+// 		}
+// 	});
+// });
 
 // read all cards in 1 deck
-router.post('/read', function(req, res) {
-	// console.log(req.body);
+//Must remove hard coded deckId
+router.get('/read', function(req, res) {
+	console.log('in get read', req.query.id);
 	  Cards.findAll({
-		  where: {
-			  deckId: req.body.deckId
-		}
-	}).then(function(decksObj) {
-		// res.send()
+      where: {
+        deckId: req.query.id
+      }
+    }
+	).then(function(decksObj) {
+		res.send(decksObj)
 	}).catch(function(error) {
 		  console.error(error);
 	});

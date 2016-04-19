@@ -4,22 +4,76 @@ angular
 
 function TestController($scope, $stateParams, DeckFactory, UserFactory) {
 
+  //  The index of the current displayed card in deck
+  $scope.index = 0;
+
   $scope.currentDeck;
   DeckFactory.getAllDecks().then((data) => {
     $scope.decks = data.data;
     $scope.currentDeck = $scope.decks[$stateParams.id];
   });
-
-  //console.log(DeckFactory);
-  //  The text to display on the card
-  $scope.showText;
-
-  //  The index of the current displayed card in deck
-  $scope.index = 0;
+  $scope.cards;
+  DeckFactory.setDeck($stateParams.id).then((data) => {
+    $scope.cards = data.data;
+    console.log($scope.cards);
+    $scope.currentQuestion = $scope.cards[$scope.index];
+    //  The text to display on the card
+    $scope.showText = $scope.currentQuestion.question;
+    $scope.showCard();
+  });
 
   //  True when question is to be shown; false for answer
   $scope.showQ = true;
   $scope.currentView = '';
+
+  //  Display the appropriate question or answer
+  //  'cardSide' is the text at the top of the card
+  $scope.showCard = function() {
+    $scope.currentQuestion = $scope.cards[$scope.index];
+    if ($scope.showQ) {
+      $scope.cardSide = 'Question';
+      $scope.showText = $scope.currentQuestion.question;
+    } else {
+      $scope.cardSide = 'Answer';
+      $scope.showText = $scope.currentQuestion.answer;
+      $scope.showQ = false;
+    }
+  };
+
+  //  Change index to previous card. This currently assumes cards are in order
+  $scope.prevCard = function() {
+    if ($scope.index - 1 < 0) $scope.index = $scope.cards.length - 1;
+    else --$scope.index;
+    $scope.showQ = true;
+    $scope.showCard();
+  };
+
+  //  Advance the card when user selects 'next', 'correct', or 'incorrect'
+  $scope.nextCard = function(correct) {
+
+    //  TODO: Set up functionality of scoring progress
+    // if (correct === 'Y') $scope.cards[$scope.index].numCorrect++;
+    // if (correct === 'Y' || correct === 'N') $scope.cards[$scope.index].displayCount++;
+
+    //  TODO: Randomize next card
+    if ($scope.index + 1 > $scope.cards.length - 1) {
+      console.log('never')
+      $scope.index = 0;
+      $scope.showCard();
+    }
+    else {
+      $scope.index++;
+      console.log($scope.index);
+      $scope.currentQuestion = $scope.cards[$scope.index];
+      console.log($scope.currentQuestion);
+      //  When next card is shown, text should be the question
+      $scope.showQ = true;
+      $scope.showCard();
+    }
+  };
+  //$scope.currentQuestion = $scope.cards[$scope.index];
+  //console.log(DeckFactory);
+
 
   // $scope.$on('handleBroadcast', function(event, status) {
   //   $scope.currentView = status;
@@ -37,42 +91,6 @@ function TestController($scope, $stateParams, DeckFactory, UserFactory) {
   //   // $scope.showText = $scope.cards[$scope.index].question;
   //   $scope.showCard();
   // }
-
-  //  Display the appropriate question or answer
-  //  'cardSide' is the text at the top of the card
-  $scope.showCard = function() {
-    if ($scope.showQ) {
-      $scope.cardSide = 'Question';
-      $scope.showText = $scope.cards[$scope.index].question;
-    } else {
-      $scope.cardSide = 'Answer';
-      $scope.showText = $scope.cards[$scope.index].answer;
-    }
-  };
-
-  //  Advance the card when user selects 'next', 'correct', or 'incorrect'
-  $scope.nextCard = function(correct) {
-
-    //  TODO: Set up functionality of scoring progress
-    if (correct === 'Y') $scope.cards[$scope.index].numCorrect++;
-    if (correct === 'Y' || correct === 'N') $scope.cards[$scope.index].displayCount++;
-
-    //  TODO: Randomize next card
-    if ($scope.index + 1 >= $scope.numCards) $scope.index = 0;
-    else ++$scope.index;
-
-    //  When next card is shown, text should be the question
-    $scope.showQ = true;
-    $scope.showCard();
-  };
-
-  //  Change index to previous card. This currently assumes cards are in order
-  $scope.prevCard = function() {
-    if ($scope.index - 1 < 0) $scope.index = $scope.numCards - 1;
-    else --$scope.index;
-    $scope.showQ = true;
-    $scope.showCard();
-  };
 
   //  Alternate between question and answer
   $scope.flipCard = function() {
