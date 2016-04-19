@@ -13,7 +13,11 @@ describe('HTTP Server', function() {
 				request
 					.get('/')
 					.expect(200)
-					.expect('Content-Type', /text\/html/, done);
+					.end((err, res) => {
+						console.log("Res.bdy: ", res.body);
+						done();
+					});
+					// .expect('Content-Type', /text\/html/, done);
 			});
 			it('no extraneous', function(done) {
 				request
@@ -88,6 +92,7 @@ describe('HTTP Server', function() {
 				.expect(200)
 				// .expect('Content-Type', /application\/json/, done);
 				.end(function(err, res) {
+					console.log("Res.body: ", res.body);
 					expect(res.headers['x-powered-by']).to.equal('Express');
 					done();
 				});
