@@ -7,9 +7,7 @@ Ankio is built on a postgres database, which much be configured manually before 
 
 Once you have Postgres installed, create a new database by typing `createdb` command in your terminal.
 	
-	`
 	$ createdb ankio
 	$ psql ankio
 
 	ankio=#
-	`
