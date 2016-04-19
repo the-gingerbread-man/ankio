@@ -23,7 +23,7 @@ router.post('/create', function(req, res) {
 		  Cards.create({
 			  deckId: req.body.deckId,
 			  question: req.body.question,
-			  answer: res.body.answer,
+			  answer: req.body.answer,
 			  numCorrect: 0,
 			  displayCount: 0
 	  }).catch(function(error) {
