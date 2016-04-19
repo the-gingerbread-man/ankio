@@ -19,11 +19,10 @@ app.use('/users', users);
 app.use('/decks', decks);
 app.use('/cards', cards);
 
-app.use(express.static(path.join(__dirname, './../client/')));
-
-// render index page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(`${__dirname}./../client`));
+	res.render('./../client/index.html');
 });
 
 app.listen(PORT);
+
+export default app;
