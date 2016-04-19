@@ -8,7 +8,7 @@ const sequelize = new Sequelize('ankio', 'ankio_user', 'ankio_passwrod', {
 });
 
 // Define User
-var User = sequelize.define('user', {
+var User = sequelize.define('users', {
   username: {type: Sequelize.STRING, unique: true, allowNull: false},
   password: {type: Sequelize.STRING, allowNull: false}
 });
