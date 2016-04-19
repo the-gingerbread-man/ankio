@@ -21,7 +21,6 @@ function CreateController($scope, $q, DeckFactory, UserFactory) {
   };
   //  Add new deck to decks table in database
   $scope.createDeck = function() {
-    console.log(UserFactory);
     $scope.named = true;
     DeckFactory.createDeck(UserFactory.username, $scope.deckname);
   }

@@ -4,7 +4,6 @@ angular
 
 function UserFactory($http, $rootScope) {
   var msgObj = {login: false};
-
   msgObj.username = '';
 
   msgObj.fetch = function(username, password) {
