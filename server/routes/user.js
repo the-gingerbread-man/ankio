@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('template1', 'coffeeapp', 'capassword', {
+const sequelize = new Sequelize('ankio', 'ankio_user', 'ankio_passwrod', {
   host: 'localhost',
   dialect: 'postgres',
 });

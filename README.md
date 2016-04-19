@@ -11,3 +11,5 @@ Once you have Postgres installed, create a new database by typing `createdb` com
 	$ psql ankio
 
 	ankio=#
+
+You should be greeted with the postgres prompt inside your new database.
