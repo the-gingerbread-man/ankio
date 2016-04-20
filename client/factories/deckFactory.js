@@ -2,7 +2,7 @@ angular
   .module('DeckFactory', ['ui.router'])
   .factory('DeckFactory', DeckFactory);
 
-function DeckFactory($http, UserFactory) {
+function DeckFactory($http, $stateParams, UserFactory) {
 
   var factory = {};
 
@@ -10,32 +10,32 @@ function DeckFactory($http, UserFactory) {
   var userDecks = [];
 
   //  The current deck of cards selected for test
-  var deck = {};
 
   //  The cards in the current deck
   var cardsInDeck = [];
 
   //  Create a new deck in database
-  factory.createDeck = function(username, deckname) {
-    console.log('CreateDeck: ' ,username);
-    $http.post('/decks/create', {
-      username: username,
-      deckname: deckname
-    }).then(function(res) {
-      deck = res.data;
-      return res.data;
-    });
+  factory.createDeck = function(userId, deckName) {
+    console.log('deckFactory.createDeck called with', userId, deckName);
+    $http
+      .post('/decks/create', {
+        userId: userId,
+        deckName: deckName
+      })
+      .then(res => {
+        factory.deckId = res.data.deckId;
+        console.log("Created A Deck", res);
+      });
   };
 
   //  Add a card to the current deck in the database
-  factory.addCard = function(ques, ans) {
+  factory.addCard = function(deckId, ques, ans) {
+    console.log('Creating Card', deckId, ques, ans);
     $http.post('/cards/create', {
-      deckId: deck.id,
+      deckId: deckId,
       question: ques,
       answer: ans
-    }).then(function(res) {
-      return res.data;
-    });
+    })
   };
 
   //  Retrieve all decks for the logged in user and store in factory
@@ -54,7 +54,6 @@ function DeckFactory($http, UserFactory) {
   // };
 
   factory.getAllDecks = function(user) {
-    console.log('in get all decks', UserFactory.username);
     var req = {
      method: 'GET',
      url: '/decks/getAll',
@@ -65,7 +64,6 @@ function DeckFactory($http, UserFactory) {
     }
     return $http.get('/decks/getAll').success(function(data) {
       userDecks = data;
-        console.log(data);
     }).error(function(err) {
       //allDecks.reject('Error');
     });
@@ -74,18 +72,21 @@ function DeckFactory($http, UserFactory) {
 
   //  Retrieve all cards in the current deck and store in factory
   factory.setDeck = function(index) {
-    console.log('setdeck - param: ', index);
-    //deck = userDecks[index];
-    //var allCards = $q.defer();
-    // return $http.get('/cards/read').success(function(data) {
-    //     cardsInDeck = data;
-    //   }).error(function(err) {
-    // });
     return $http.get('/cards/read', {
       params: { id: index }
     }).success(function(data) {
         cardsInDeck = data;
       }).error(function(err) {
+    });
+  };
+  factory.sessionResults = function(deck, id) {
+    console.log('session results', deck);
+    factory.deckId = id;
+    factory.results = deck.map((question, i) => {
+      return {
+          "label" : question.question,
+          "value" : (question.numCorrect === 0) ? 0.0 : Math.round((question.numCorrect / question.displayCount) * 100),
+      };
     });
   };
 

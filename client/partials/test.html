@@ -6,13 +6,14 @@
   </div>
   <div id="card-nav">
     <div>
-      <button ng-click="prevCard()">Previous</button>
-      <button ng-click="flipCard()">Flip</button>
-      <button ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('N')">Incorrect</button>
-      <button ng-attr-btn-view="{{ !showQ }}" ng-click="nextCard('Y')">Correct</button>
-      <button ng-attr-btn-view="{{ showQ }}" ng-click="nextCard(null)">Next</button>
+      <button class="btn btn-primary" ng-click="prevCard()">Previous</button>
+      <button class="btn btn-primary" ng-click="flipCard()">Flip</button>
+      <button class="btn btn-primary btn-danger" ng-attr-btn-view="{{ !showQ }}" ng-click="answer('N')">Incorrect</button>
+      <button class="btn btn-primary btn-success" ng-attr-btn-view="{{ !showQ }}" ng-click="answer('Y')">Correct</button>
+      <button class="btn btn-primary" ng-click="nextCard(null)">Next</button>
+      <a href="/#/end/{{ deck.id }}"><button class="btn btn-primary" ng-click="end()">End Study Session</button></a>
     </div>
-    <a href="/#/user"><button ng-click="previousPage()">Decks</button></a>
+    <a href="/#/user"><button class="btn btn-primary" ng-click="previousPage()">View All Decks</button></a>
   </div>
 
 </div>

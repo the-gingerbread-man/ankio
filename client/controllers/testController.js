@@ -10,12 +10,11 @@ function TestController($scope, $stateParams, DeckFactory, UserFactory) {
   $scope.currentDeck;
   DeckFactory.getAllDecks().then((data) => {
     $scope.decks = data.data;
-    $scope.currentDeck = $scope.decks[$stateParams.id];
+    $scope.currentDeck = $scope.decks[$stateParams.id-1];
   });
   $scope.cards;
-  DeckFactory.setDeck($stateParams.id).then((data) => {
+  DeckFactory.setDeck(($stateParams.id -1) ).then((data) => {
     $scope.cards = data.data;
-    console.log($scope.cards);
     $scope.currentQuestion = $scope.cards[$scope.index];
     //  The text to display on the card
     $scope.showText = $scope.currentQuestion.question;
@@ -38,6 +37,7 @@ function TestController($scope, $stateParams, DeckFactory, UserFactory) {
       $scope.showText = $scope.currentQuestion.answer;
       $scope.showQ = false;
     }
+    $scope.currentQuestion.displayCount++;
   };
 
   //  Change index to previous card. This currently assumes cards are in order
@@ -49,31 +49,25 @@ function TestController($scope, $stateParams, DeckFactory, UserFactory) {
   };
 
   //  Advance the card when user selects 'next', 'correct', or 'incorrect'
-  $scope.nextCard = function(correct) {
-
-    //  TODO: Set up functionality of scoring progress
-    // if (correct === 'Y') $scope.cards[$scope.index].numCorrect++;
-    // if (correct === 'Y' || correct === 'N') $scope.cards[$scope.index].displayCount++;
-
+  $scope.nextCard = function() {
     //  TODO: Randomize next card
     if ($scope.index + 1 > $scope.cards.length - 1) {
-      console.log('never')
       $scope.index = 0;
       $scope.showCard();
     }
     else {
       $scope.index++;
-      console.log($scope.index);
       $scope.currentQuestion = $scope.cards[$scope.index];
-      console.log($scope.currentQuestion);
       //  When next card is shown, text should be the question
       $scope.showQ = true;
       $scope.showCard();
     }
   };
-  //$scope.currentQuestion = $scope.cards[$scope.index];
-  //console.log(DeckFactory);
 
+  $scope.answer = function(correct) {
+    if (correct === 'Y') $scope.currentQuestion.numCorrect++;
+    if (correct === 'N') $scope.currentQuestion.numIncorrect++;
+  }
 
   // $scope.$on('handleBroadcast', function(event, status) {
   //   $scope.currentView = status;
@@ -108,4 +102,7 @@ function TestController($scope, $stateParams, DeckFactory, UserFactory) {
 
   //  Initialize the create page by calling the getCards function
   // $scope.getCards();
+  $scope.end = function() {
+    DeckFactory.sessionResults($scope.cards,$stateParams.id);
+  };
 }

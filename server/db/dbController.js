@@ -27,9 +27,9 @@ const Card = sequelize.define('card', {
   updated: { type: Sequelize.STRING, defaultValue: Date.now() },
 });
 
-User.hasMany(Deck, { as: 'userId' });
-Deck.hasMany(Card { as: 'deckId' });
+Deck.belongsTo(User);
+Card.belongsTo(Deck);
 
-sequelize.sync({ force: true });
+sequelize.sync();
 
 module.exports = { User, Deck, Card };

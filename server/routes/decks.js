@@ -6,22 +6,22 @@ const Card = require('./../db/dbController.js').Card;
 router
 	.post('/create', (req, res) => {
 		Deck
-		.create({ userId: req.body.userId, deckName: req.body.deckName })
-		.then(res.send)
+		.create({ userUserId: req.body.userId, deckName: req.body.deckName })
+		.then(newDeck => {
+			console.log('New Deck Data Values: ', newDeck.dataValues);
+			res.send(newDeck.dataValues);
+		})
 		.catch(console.error);
 	})
 
-	.post('/destroy', function(req, res) {
-	  Deck.destroy({ where: { deckId: req.body.deckId }});
+	.post('/destroy', (req, res) => {
+	  Deck
+	  	.destroy({ where: { deckId: req.body.deckId }})
+	  	.catch(console.error);
+	  
 	  Card
-	  	.findAll({
-		  	where: { deckId: req.body.deckId }
-		  })
-	  	.then(cards => {
-		  	cards.forEach(card => {
-			  	Card.destroy({ where: { id: card.id }});
-				});
-			});
+	  	.destroy({ where: { deck : req.body.deckId }})
+			.catch(console.error);
 	})
 	
 	.get('/getAll', (req, res) => {

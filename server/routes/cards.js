@@ -3,44 +3,44 @@ const router = express.Router();
 const Card = require('./../db/dbController.js').Card;
 
 router
-	.post('/create', (req, res) => {
+  .post('/create', (req, res) => {
+    console.log(req.body);
+		  Card.create({
+			  deckDeckId: req.body.deckId,
+			  question: req.body.question,
+			  answer: req.body.answer,
+			  numCorrect: 0,
+        numIncorrect: 0,
+			  displayCount: 0
+	     })
+    .then(res.send)
+    .catch(console.error);
+  })
+
+  .get('/read', (req, res) => {
+     Card
+       .findAll({ where: { deckId: req.query.deckId }})
+       .then(res.send)
+       .catch(console.error);
+   })
+
+  .post('/update', (req, res) => {
+	  Card
+      .update({
+		    numCorrect: req.body.numCorrect,
+        numIncorrect: req.body.numIncorrect,
+		    displayCount: req.body.displayCount
+      }, { where: { cardId: req.body.cardId }
+      })
+      .then(res.send)
+      .catch(console.error);
+  })
+
+  .post('/delete', (req, res) => {
 		  Card
-		  	.create({
-			  	deckId: req.body.deckId,
-			  	question: req.body.question,
-			  	answer: req.body.answer,
-			  	numCorrect: 0,
-			  	displayCount: 0,
-	  		})
-	  		.catch(function(error) {
-		    	console.error(error);
-				});
-	})
-
-	.post('/update', (req, res) => {
-	  Card
-	  	.update({ numCorrect: req.body.numCorrect, displayCount: req.body.displayCount },
-	  					{ where: { cardId: req.body.cardId }
-			});
-	})
-
-	.post( (req, res) => {
-	  Card
-	  	.update({ question: req.body.question, answer: req.body.answer },
-	  					{ where: { cardId: req.body.cardId }
-			});
-	})
-
-	.post('/read', function(req, res) {
-	  Card
-	  	.findAll({ where: { deckId: req.body.deckId }})
-	  	.then(res.send)
-	  	.catch(console.error);
-	})
-
-	.post(function(req, res) {
-		  Card
-		  	.destroy({ where: { cardI: req.body.cardId }});
-	});
+        .destroy({ where: { cardId: req.body.cardId }})
+        .then(res.send)
+        .catch(console.error);
+});
 
 module.exports = router;
