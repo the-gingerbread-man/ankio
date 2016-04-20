@@ -1,8 +1,9 @@
+const path = require('path');
+const PORT = process.env.PORT || 3000;
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const path = require('path');
-const PORT = process.env.PORT || 3000;
 
 // Import Routes
 const users = require('./routes/user');
@@ -18,11 +19,8 @@ app.use('/users', users);
 app.use('/decks', decks);
 app.use('/cards', cards);
 
-app.use(express.static(path.join(__dirname, './../client/')));
-
-// render index page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(`${__dirname}./../client`));
+	res.render('./../client/index.html');
 });
 
 app.listen(PORT);

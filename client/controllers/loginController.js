@@ -38,6 +38,7 @@ function LoginController($scope, $state, UserFactory) {
 
   // Logs out user by using broadcast to change the view
   $scope.logout = function() {
+    $scope.name = '';
     $scope.loggedIn = $scope.logoutButton = false;
     // UserFactory.broadcast('landing');
     $scope.name = '';
