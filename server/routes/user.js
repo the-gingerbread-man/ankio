@@ -4,35 +4,35 @@ const bcrypt = require('bcrypt');
 const User = require('./../db/dbController.js').User;
 
 // Finds existing user in database after bcrypt hash
-router.post('/', function(req, res) {
-  User.findOne( { where: {username: req.body.username} }).then(function(item) {
-    if (item) {
-      var hashedPassword = bcrypt.hashSync(req.body.password, 10);
-      console.log("Pw Hash: ", hashedPassword);
-      if (bcrypt.compareSync(req.body.password, item.dataValues.password)) {
-        res.send(req.body.username);
-      } else {
-        console.log('error');
-        res.send('error');
-      }
+router.post('/', (req, res) => {
+  User
+  .findOne({ where: { username: req.body.username } })
+  .then(item => {
+    if(item) {
+      // user with inputted username does exist, check password
+      bcrypt.compare(req.body.password, item.dataValues.password, (err, pwSuccess) => {
+        if (err) { console.error('bcrypt error: ', err); }
+        
+        if (pwSuccess) res.status(200).send(item.userId); 
+        else res.status(404).send('Password Invalid');
+      });
+    } else {
+      // no user with inputted username exists in the db
+      res.status(404).send(`No user with uername ${req.body.username} exists`);
     }
-    else {
-      console.log('error');
-    }
-  });
+  })
+  .catch(err => console.error);
 });
 
-// Creates new user in database after bcrypt hash
-router.post('/create', function(req, res) {
-  console.log('Creating a New User\n', "UN: ", req.body.username, "\nPW: ", req.body.password);
-  var hashedPassword = bcrypt.hashSync(req.body.password, 10);
-  console.log("New PW Hash: ", hashedPassword);
-    User.create({
-      username: req.body.username,
-      password: hashedPassword,
-    }).catch(function(error) {
-      console.error(error);
-    });
+// Creates new user in the database (if input is valid)
+router.post('/create', (req, res) => {
+  bcrypt.hash(req.body.password, 10, ((err, hashedPassword) => {
+    console.log('Hashed PW:', hashedPassword);
+    User
+    .create({ username: req.body.username, password: hashedPassword })
+    .then(userRecord => { res.status(200).send(userRecord); })
+    .catch(error => { res.status(404).send('Fail: User not created.'); });
+  }));
 });
 
 module.exports = router;

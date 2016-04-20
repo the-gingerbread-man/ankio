@@ -91,41 +91,26 @@ describe('HTTP Server', function () {
       request
         .post('/users/create')
         .send(validAuth)
-        .expect(200)
-        .end(function (err, res) {
-          expect(err).to.not.exist;
-          done();
-        });
+        .expect(200, done);
     });
     it('Accepts Correct Password', function (done) {
       request
-        .post('/users/')
+        .post('/users')
         .send(validAuth)
         .expect(200)
-        .end(function (err, res) {
-          expect(err).to.not.exist;
-          done();
-        });
+        .expect('Content-Type', /application\/json/, done);
     });
     it('Rejects Incorrect Password', function (done) {
       request
-        .post('/users/')
+        .post('/users')
         .send(invalidAuth)
-        .expect(200)
-        .end(function (err, res) {
-          expect(err).to.not.exist;
-          done();
-        });
+        .expect(404, done);
     });
     it('Does Not Create Duplicate Usernames', function (done) {
       request
-        .post('/users/create/')
+        .post('/users/create')
         .send({ username: 'testuser', password: 'adifferentpassword' })
-        .expect(404)
-        .end(function (err, res) {
-          expect(err).to.exist;
-          done();
-        });
+        .expect(404, done);
     });
   });
 });
