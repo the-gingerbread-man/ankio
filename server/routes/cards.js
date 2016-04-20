@@ -4,22 +4,22 @@ const Card = require('./../db/dbController.js').Card;
 
 router
   .post('/create', (req, res) => {
-    console.log(req.body);
-		  Card.create({
-			  deckDeckId: req.body.deckId,
-			  question: req.body.question,
-			  answer: req.body.answer,
-			  numCorrect: 0,
-        numIncorrect: 0,
-			  displayCount: 0
+		  Card
+        .create({
+          deckDeckId: req.body.deckId,
+          question: req.body.question,
+          answer: req.body.answer,
+          numCorrect: 0,
+          numIncorrect: 0,
+          displayCount: 0
 	     })
-    .then(res.send)
-    .catch(console.error);
+      .then(res.send)
+      .catch(console.error);
   })
 
   .get('/read', (req, res) => {
      Card
-       .findAll({ where: { deckId: req.query.deckId }})
+       .findAll({ where: { deckId: req.query.deckId }}) // Should this be req.query or req.body ??
        .then(res.send)
        .catch(console.error);
    })
@@ -30,7 +30,7 @@ router
 		    numCorrect: req.body.numCorrect,
         numIncorrect: req.body.numIncorrect,
 		    displayCount: req.body.displayCount
-      }, { where: { cardId: req.body.cardId }
+        }, { where: { cardId: req.body.cardId }
       })
       .then(res.send)
       .catch(console.error);
