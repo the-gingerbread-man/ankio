@@ -108,7 +108,7 @@ describe('HTTP Server', function () {
     it('Does Not Create Duplicate Usernames', function (done) {
       request
         .post('/users/create')
-        .send({ username: 'testuser', password: 'adifferentpassword' })
+        .send({ username: 'testuser', password: 'wrongpassword' })
         .expect(404, done);
     });
   });
