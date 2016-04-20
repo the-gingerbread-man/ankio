@@ -27,8 +27,8 @@ const Card = sequelize.define('card', {
   updated: { type: Sequelize.STRING, defaultValue: Date.now() },
 });
 
-User.hasMany(Deck);
-Deck.hasMany(Card);
+User.hasMany(Deck, { as: 'userId' });
+Deck.hasMany(Card { as: 'deckId' });
 
 sequelize.sync({ force: true });
 
