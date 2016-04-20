@@ -30,6 +30,6 @@ const Card = sequelize.define('card', {
 User.hasMany(Deck);
 Deck.hasMany(Card);
 
-sequelize.sync();
+sequelize.sync({ force: true });
 
 module.exports = { User, Deck, Card, };
