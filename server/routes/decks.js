@@ -1,38 +1,25 @@
 const express = require('express');
 const router = express.Router();
-
-const Sequelize = require('sequelize');
-const connection = new Sequelize('ankio', 'ankio_user', 'ankio_password', {
-  host: 'localhost',
-  dialect: 'postgres',
-});
-
-// deck tables
-var Decks = connection.define('decks', {
-	  username: Sequelize.STRING,
-	  deckname: Sequelize.STRING,
-});
+const Deck = require('./../db/dbController.js').Deck;
 
 // create a new deck, insert into postgres
 router.post('/create', function(req, res) {
-	  connection.sync().then(function() {
-		  Decks.create({
-			  username: req.body.username,
-			  deckname: req.body.deckname
+		  Deck.create({
+			  userId: req.body.userId,
+			 	deckName: req.body.deckName
 		}).then(function(newDeck) {
 			  res.send(newDeck);
 		}).catch(function(error) {
 			   console.error(error);
 		});
-	});
 });
 
 // delete a deck
-router.post(function(req, res) {
-	  Decks.destroy({
+router.post('/destroy', function(req, res) {
+	  Deck.destroy({
 		  where: {
-			  id: req.body.id
-		}
+			  deckId: req.body.deckId
+			}
 	});
 
 	  Cards.findAll({
@@ -43,27 +30,24 @@ router.post(function(req, res) {
 		  cards.forEach(function(card) {
 			  Cards.destroy({
 				  where: {
-					  id: card.id // ??
+					  id: card.id
 				}
 			});
 		});
 	});
 });
 
-// read all decks of 1 user
-router.post('/', function(req, res) {
-	  console.log(req.body);
-	// Decks.findAll({
-	// 	where: {
-	// 		username: req.body.username
-	// 	}
-	// }).then(function(decksObj) {
-	// 	console.log(decksObj)
-	// 	// res.send()
-	// }).catch(function(error) {
-	// 			 console.error(error);
-	// })
+// read all Deck of 1 user
+router.get('/getAll', function(req, res) {
+	Deck.findAll({
+    where: {
+      userUserId: req.body.userId
+    }
+  }).then(function(DeckObj) {
+		res.send(DeckObj)
+	}).catch(function(error) {
+			console.error(error);
+	})
 });
 
-// INPUT: deleteDeck(32);
 module.exports = router;

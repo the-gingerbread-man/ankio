@@ -1,67 +1,49 @@
 const express = require('express');
 const router = express.Router();
+const Card = require('./../db/dbController.js').Card;
 
-const Sequelize = require('sequelize');
-const connection = new Sequelize('ankio', 'ankio_user', 'ankio_password', {
-  host: 'localhost',
-  dialect: 'postgres',
-});
-
-// card table
-var Cards = connection.define('cards', {
-	  id: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
-	  deckId: Sequelize.INTEGER,
-	  question: Sequelize.STRING,
-	  answer: Sequelize.STRING,
-	  numCorrect: Sequelize.INTEGER,
-	  displayCount: Sequelize.INTEGER
-});
-
-// insert cards of a deck into postgres
 router.post('/create', function(req, res) {
-	  connection.sync().then(function() {
-		  Cards.create({
+		  Card.create({
 			  deckId: req.body.deckId,
 			  question: req.body.question,
-			  answer: res.body.answer,
+			  answer: req.body.answer,
 			  numCorrect: 0,
-			  displayCount: 0
+			  displayCount: 0,
 	  }).catch(function(error) {
 		    console.error(error);
 		});
-	});
-
 });
 
+// TODO: Chunk this
 // Alter successRate & displayCount as the user views the card
 // and when they get the correct answer
 router.post('/update', function(req, res) {
-	  Cards.update({
+	  Card.update({
 		  numCorrect: req.body.numCorrect,
 		  displayCount: req.body.displayCount
-	}, {
+		}, {
 		  where: {
-			  id: cardId
+			  cardId: req.body.cardId
 		}
 	});
 });
 
 // user can edit their question and answer, changes will reflect in postgres
 router.post(function(req, res) {
-	  Cards.update({
+	  Card.update({
 		  question: req.body.question,
 		  answer: req.body.answer
 	}, {
 		  where: {
-			  id: req.body.id
+			  cardId: req.body.cardId
 		}
 	});
 });
 
-// read all cards in 1 deck
+// read all Card in 1 deck
 router.post('/read', function(req, res) {
 	// console.log(req.body);
-	  Cards.findAll({
+	  Card.findAll({
 		  where: {
 			  deckId: req.body.deckId
 		}
@@ -72,11 +54,11 @@ router.post('/read', function(req, res) {
 	});
 });
 
-// delete card (row in cards)
+// delete card (row in Card)
 router.post(function(req, res) {
-		  Cards.destroy({
+		  Card.destroy({
 			  where: {
-				  id: req.body.id
+				  cardI: req.body.cardId
 			}
 		});
 });

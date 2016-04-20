@@ -8,11 +8,22 @@
 </head>
 <body ng-app="myApp">
   <!-- Views are set by specific key words in app.js.  See UI Router Documentation -->
-  <div ui-view='nav'></div>
+  <!-- <div ui-view='nav'></div>
   <div ui-view='landing'></div>
   <div ui-view='home'></div>
   <div ui-view='test'></div>
-  <div ui-view='create'></div>
+  <div ui-view='create'></div> -->
+    <nav class="navbar navbar-inverse" role="navigation" ng-controller="LoginController">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="index">Ankio</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="login-create-text" ng-hide="loggedIn"><a ui-sref="login">Log In</a></li>
+            <a class="logout-btn"  ng-show="logoutButton" ng-click="logout()">Logout</a>
+        </ul>
+    </nav>
+  <div ui-view></div>
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>

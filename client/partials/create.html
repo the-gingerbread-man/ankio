@@ -1,19 +1,25 @@
-<div  ng-show='currentView === "createDeck"' class="container">
+<div class="container">
+  <h3>Your Decks</h3>
+  <div ng-repeat="deck in decks | orderBy: 'createdAt'">
+    <a href="/#/user/{{ deck.id }}"><p>{{ deck.deckname }}</p></a>
+  </div>
   <div ng-attr-btn-view="{{ !named }}">
-    <h2>Name your new deck</h2>
-    <input type="text" placeholder="Deck name" ng-model="deckname">
-    <button ng-click="createDeck()">Create Deck</button>
+    <h2>Create a new deck</h2>
+    <input class="form-control" type="text" placeholder="Deck name" ng-model="deckname">
+    <button class="btn btn-lg btn-primary btn-block" ng-click="createDeck()">Create Deck</button>
   </div>
   <div ng-attr-btn-view="{{ named }}">
-    <h2>{{ deckname }}</h2>
+    <h3>Current Deck: {{ deckname }}</h3>
     <h3>Add cards</h3>
     <p>Question</p>
-    <textarea ng-model="newQ"></textarea>
+    <textarea class="form-control" ng-model="newQ"></textarea>
     <p>Answer</p>
-    <textarea ng-model="newA"></textarea>
-    <button ng-click="addCard()">Add Card</button>
+    <textarea class="form-control" ng-model="newA"></textarea>
+    <button class="btn btn-lg btn-primary btn-block" ng-click="addCard()">Add Card</button>
   <div>
-  <button ng-click="previousPage()">Decks</button>
+  <button class="btn btn-lg btn-primary btn-block" ng-click="previousPage()">Decks</button>
   </div>
   </div>
 </div>
+
+ <!-- ng-show='currentView === "createDeck"'  -->

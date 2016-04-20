@@ -2,7 +2,7 @@ angular
   .module('MDB.LoginController', ['ui.router'])
   .controller('LoginController', LoginController);
 
-function LoginController($scope, UserFactory) {
+function LoginController($scope, $state, UserFactory) {
   $scope.name = '';
   $scope.errorText = '';
   $scope.signupText = '';
@@ -14,21 +14,25 @@ function LoginController($scope, UserFactory) {
   // If $scope.loginText is true - User will log in
   // Otherwise a new user will be created
   $scope.login = function() {
-    if ($scope.loginText) {
+    //console.log('log in',$scope.username,$scope.password);
       UserFactory.fetch($scope.username, $scope.password).success(function(user) {
         if (user === 'error') {
           $scope.errorText = 'User/Password is incorrect.';
         } else {
           $scope.name = 'Hello ' + user;
           $scope.loggedIn = $scope.logoutButton = true;
-          UserFactory.broadcast('createdDecks');
+          // UserFactory.broadcast('createdDecks');
+          console.log($scope.loggedIn,$scope.logoutButton );
+          $state.go('userpage');
         }
       });
-    } else {
-      UserFactory.create($scope.username, $scope.password);
-      $scope.name = 'Hello ' + $scope.username;
-      $scope.loggedIn = $scope.logoutButton = true;
-    }
+  };
+
+  $scope.signup = function(){
+    UserFactory.create($scope.username, $scope.password);
+    $scope.name = 'Hello ' + $scope.username;
+    $scope.loggedIn = $scope.logoutButton = true;
+    $state.go('userpage');
   };
 
 
@@ -36,9 +40,10 @@ function LoginController($scope, UserFactory) {
   $scope.logout = function() {
     $scope.name = '';
     $scope.loggedIn = $scope.logoutButton = false;
-    UserFactory.broadcast('landing');
+    // UserFactory.broadcast('landing');
     $scope.name = '';
     $scope.password = '';
+    $state.go('login');
   };
 
   // Toggled Login / Create text on nav.html
