@@ -7,8 +7,7 @@ const sequelize = new Sequelize('ankio', 'ankio_user', 'ankio_password', {
 const User = sequelize.define('user', {
 	userId: { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, primaryKey: true },
 	username: { type: Sequelize.STRING, unique: true, allowNull: false },
-	pwHash: Sequelize.STRING,
-	pwSalt: Sequelize.STRING,
+	password: Sequelize.STRING,
 });
 
 const Deck = sequelize.define('deck', {

@@ -4,7 +4,6 @@ const Card = require('./../db/dbController.js').Card;
 
 // insert Card of a deck into postgres
 router.post('/create', function(req, res) {
-	  // sequelize.sync().then(function() {
 		  Card.create({
 			  deckId: req.body.deckId,
 			  question: req.body.question,
@@ -14,17 +13,16 @@ router.post('/create', function(req, res) {
 	  }).catch(function(error) {
 		    console.error(error);
 		});
-	// });
-
 });
 
+// TODO: Chunk this
 // Alter successRate & displayCount as the user views the card
 // and when they get the correct answer
 router.post('/update', function(req, res) {
 	  Card.update({
 		  numCorrect: req.body.numCorrect,
 		  displayCount: req.body.displayCount
-	}, {
+		}, {
 		  where: {
 			  cardId: req.body.cardId
 		}
