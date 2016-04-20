@@ -39,7 +39,6 @@ router.post('/destroy', function(req, res) {
 
 // read all Deck of 1 user
 router.get('/getAll', function(req, res) {
-  console.log('Getting Decks for userId: ', req.body.userId);
 	Deck.findAll({
     where: {
       userUserId: req.body.userId
