@@ -2,7 +2,7 @@ angular
   .module('MDB.LoginController', ['ui.router'])
   .controller('LoginController', LoginController);
 
-function LoginController($scope, $state, UserFactory) {
+function LoginController($scope, $state, $cookies, UserFactory) {
   $scope.name = '';
   $scope.errorText = '';
   $scope.signupText = '';
@@ -22,14 +22,15 @@ function LoginController($scope, $state, UserFactory) {
           $scope.name = 'Hello ' + user;
           $scope.loggedIn = $scope.logoutButton = true;
           // UserFactory.broadcast('createdDecks');
-          console.log($scope.loggedIn,$scope.logoutButton );
           $state.go('userpage');
         }
       });
   };
 
   $scope.signup = function(){
-    UserFactory.create($scope.username, $scope.password);
+    UserFactory.create($scope.username, $scope.password).success(function(userId){
+      $cookies.put('userId', userId);
+    });
     $scope.name = 'Hello ' + $scope.username;
     $scope.loggedIn = $scope.logoutButton = true;
     $state.go('userpage');
@@ -41,9 +42,10 @@ function LoginController($scope, $state, UserFactory) {
     $scope.name = '';
     $scope.loggedIn = $scope.logoutButton = false;
     // UserFactory.broadcast('landing');
+    $cookies.remove('username');
     $scope.name = '';
     $scope.password = '';
-    $state.go('login');
+    //$state.go('login');
   };
 
   // Toggled Login / Create text on nav.html

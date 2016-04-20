@@ -7,41 +7,11 @@ var myApp = angular
     'TestController',
     'MainController',
     'CreateController',
-    'DeckFactory'
+    'DeckFactory',
+    'nvd3',
+    'ResultsController',
+    'ngCookies'
   ]);
-
-// myApp.config(function($stateProvider, $urlRouterProvider) {
-//
-//   // If the user goes beyond the '/' route it will redirect them to '/'
-//   $urlRouterProvider.otherwise('/');
-//
-//   $stateProvider
-//     .state('index', {
-//       url: "/",
-//       views: {
-//         'nav': {
-//           templateUrl: "partials/nav.html",
-//           controller: 'LoginController'
-//         },
-//         'landing': {
-//           templateUrl: "partials/landing.html",
-//           controller: 'ContentController'
-//         },
-//         'home': {
-//           templateUrl: "partials/main.html",
-//           controller: 'MainController'
-//         },
-//         'test': {
-//           templateUrl: "partials/test.html",
-//           controller: 'TestController'
-//         },
-//         'create': {
-//           templateUrl: "partials/create.html",
-//           controller: 'CreateController'
-//         }
-//       }
-//     });
-// });
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
 
@@ -73,5 +43,10 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/user/{id}',
       templateUrl: '/partials/test.html',
       controller: 'TestController'
+    })
+    .state('results', {
+      url: '/end/{id}',
+      templateUrl: '/partials/results.html',
+      controller: 'ResultsController'
     });
 });

@@ -5,6 +5,7 @@ const User = require('./../db/dbController.js').User;
 
 // Finds existing user in database after bcrypt hash
 router.post('/', (req, res) => {
+  console.log(req.body.username, req.body.password);
   User
   .findOne({ where: { username: req.body.username } })
   .then(item => {
@@ -12,8 +13,8 @@ router.post('/', (req, res) => {
       // user with inputted username does exist, check password
       bcrypt.compare(req.body.password, item.dataValues.password, (err, pwSuccess) => {
         if (err) { console.error('bcrypt error: ', err); }
-        
-        if (pwSuccess) res.status(200).send(item.userId); 
+
+        if (pwSuccess) res.status(200).send(item.userId);
         else res.status(404).send('Password Invalid');
       });
     } else {

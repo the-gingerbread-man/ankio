@@ -4,6 +4,7 @@ const Deck = require('./../db/dbController.js').Deck;
 
 // create a new deck, insert into postgres
 router.post('/create', function(req, res) {
+	console.log(req.body);
 		Deck
 		.create({ userId: req.body.userId, deckName: req.body.deckName })
 		.then(res.send)

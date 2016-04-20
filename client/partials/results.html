@@ -1,0 +1,15 @@
+<div>
+  <h1 id="deckTitle">{{ message }}</h1>
+  <div id="card-chart" ui-view>
+    <div class="row">
+        <nvd3 options="options" data="data"></nvd3>
+    </div>
+  </div>
+  <div id="card-nav">
+    <a href="/#/user/{{currentDeckId}}"><button class="btn btn-primary btn-success">Start this Deck Over</button></a>
+    <a href="/#/user"><button class="btn btn-primary">Back to My Decks</button></a>
+  </div>
+
+</div>
+
+<!-- ng-show="currentView === 'currentDeck'" -->

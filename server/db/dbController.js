@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('ankio', 'ankio_user', 'ankio_password', {
+const sequelize = new Sequelize('template1', 'coffeeapp', 'capassword', {
   host: 'localhost',
   dialect: 'postgres',
 });
@@ -30,6 +30,6 @@ const Card = sequelize.define('card', {
 User.hasMany(Deck);
 Deck.hasMany(Card);
 
-sequelize.sync({ force: true });
+sequelize.sync();
 
 module.exports = { User, Deck, Card };
