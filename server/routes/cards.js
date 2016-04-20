@@ -43,5 +43,4 @@ router
 		  	.destroy({ where: { cardI: req.body.cardId }});
 	});
 
-
 module.exports = router;

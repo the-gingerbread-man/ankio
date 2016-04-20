@@ -13,7 +13,7 @@ router
 
 	.post('/destroy', function(req, res) {
 	  Deck.destroy({ where: { deckId: req.body.deckId }});
-	  Cards
+	  Card
 	  	.findAll({
 		  	where: { deckId: req.body.deckId }
 		  })
