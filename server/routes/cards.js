@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Card = require('./../db/dbController.js').Card;
 
-// insert Card of a deck into postgres
 router.post('/create', function(req, res) {
 		  Card.create({
 			  deckId: req.body.deckId,
