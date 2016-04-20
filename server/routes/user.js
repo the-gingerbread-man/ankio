@@ -29,7 +29,7 @@ router.post('/create', (req, res) => {
   bcrypt.hash(req.body.password, 10, ((err, hashedPassword) => {
     User
     .create({ username: req.body.username, password: hashedPassword })
-    .then(userRecord => { res.status(200).send(userRecord); })
+    .then(userRecord => { res.status(200).send(userRecord.userId); })
     .catch(error => { res.status(404).send('Fail: User not created.'); });
   }));
 });

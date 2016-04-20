@@ -12,7 +12,6 @@ describe('HTTP Server', function () {
           .get('/')
           .expect(200)
           .end((err, res) => {
-            console.log('Res.bdy: ', res.body);
             done();
           });
           // .expect('Content-Type', /text\/html/, done);
