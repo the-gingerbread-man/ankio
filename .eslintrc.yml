@@ -1,6 +1,6 @@
 extends: 
   - angular
-  - google
+  - airbnb
 
 plugins: 
   - angular
