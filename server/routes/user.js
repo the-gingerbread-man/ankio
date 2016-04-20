@@ -27,7 +27,6 @@ router.post('/', (req, res) => {
 // Creates new user in the database (if input is valid)
 router.post('/create', (req, res) => {
   bcrypt.hash(req.body.password, 10, ((err, hashedPassword) => {
-    console.log('Hashed PW:', hashedPassword);
     User
     .create({ username: req.body.username, password: hashedPassword })
     .then(userRecord => { res.status(200).send(userRecord); })

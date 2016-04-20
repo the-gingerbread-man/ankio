@@ -83,7 +83,7 @@ describe('HTTP Server', function () {
     });
   });
 
-  describe('users', function () {
+  describe('User Auth', function () {
     const validAuth = { username: 'testuser', password: 'testing123' };
     const invalidAuth = { username: 'testuser', password: 'incorrectPassword' };
     
