@@ -3,6 +3,7 @@
   border-radius: 0 !important;
 -moz-border-radius: 0 !important;
 }
+
 /*Navbar*/
 .navbar-brand {
   color: white !important;
@@ -55,10 +56,7 @@
 
 #bootstrap-logo {
   font-size: 108px;
-  color: #fff;
-  border: 1px solid #cdbfe3;
-  height: 144px;
-  width: 144px;
+  color: #fff;  
   display: block;
   margin: 0 auto;
   border-radius: 20px;
@@ -96,7 +94,8 @@ body {
 }
 
 * {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
 }
 
 .later {

@@ -54,6 +54,7 @@ function TestController($scope, $stateParams, $cookies, DeckFactory, UserFactory
     //  TODO: Randomize next card
     if ($scope.index + 1 > $scope.cards.length - 1) {
       $scope.index = 0;
+      $scope.showQ = true;
       $scope.showCard();
     }
     else {
