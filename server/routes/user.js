@@ -21,7 +21,7 @@ router
         res.status(404).send(`No user with uername ${req.body.username} exists`);
       }
     })
-    .catch(err => console.error);
+    .catch(console.error);
   })
 
   .post('/create', (req, res) => {

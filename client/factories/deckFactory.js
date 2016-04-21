@@ -53,28 +53,25 @@ function DeckFactory($http, $stateParams, UserFactory) {
   //   return allDecks.promise;
   // };
 
-  factory.getAllDecks = function(user) {
-    var req = {
-     method: 'GET',
-     url: '/decks/getAll',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     data: {username: UserFactory.username}
-    }
-    return $http.get('/decks/getAll').success(function(data) {
+  factory.getAllDecks = function(userId) {
+    return $http.get('/decks/getAll', {
+      params: { userId: userId }
+    }).success(function(data) {
+      console.log('Got Decks: ', data);
       userDecks = data;
     }).error(function(err) {
+      console.error('No Decks: ', err);
       //allDecks.reject('Error');
     });
     //return userDecks;
   };
 
   //  Retrieve all cards in the current deck and store in factory
-  factory.setDeck = function(index) {
+  factory.setDeck = function(deckId) {    
     return $http.get('/cards/read', {
-      params: { id: index }
+      params: { deckId: deckId }
     }).success(function(data) {
+        console.log(data.data);
         cardsInDeck = data;
       }).error(function(err) {
     });

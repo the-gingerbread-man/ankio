@@ -13,14 +13,14 @@ router
           numIncorrect: 0,
           displayCount: 0
 	     })
-      .then(res.send)
+      .then(dbResponse => { res.send(dbResponse); })
       .catch(console.error);
   })
 
   .get('/read', (req, res) => {
      Card
-       .findAll({ where: { deckId: req.query.deckId }}) // Should this be req.query or req.body ??
-       .then(res.send)
+       .findAll({ where: { deckDeckId: req.query.deckId }}) // Should this be req.query or req.body ??
+       .then(dbResponse => { res.send(dbResponse); })
        .catch(console.error);
    })
 
@@ -32,14 +32,14 @@ router
 		    displayCount: req.body.displayCount
         }, { where: { cardId: req.body.cardId }
       })
-      .then(res.send)
+      .then(dbResponse => { res.send(dbResponse); })
       .catch(console.error);
   })
 
   .post('/delete', (req, res) => {
 		  Card
         .destroy({ where: { cardId: req.body.cardId }})
-        .then(res.send)
+        .then(dbResponse => { res.send(dbResponse); })
         .catch(console.error);
 });
 

@@ -2,18 +2,19 @@ angular
   .module('TestController', ['ui.router'])
   .controller('TestController', TestController);
 
-function TestController($scope, $stateParams, DeckFactory, UserFactory) {
+function TestController($scope, $stateParams, $cookies, DeckFactory, UserFactory) {
 
   //  The index of the current displayed card in deck
   $scope.index = 0;
 
-  $scope.currentDeck;
-  DeckFactory.getAllDecks().then((data) => {
-    $scope.decks = data.data;
-    $scope.currentDeck = $scope.decks[$stateParams.id-1];
-  });
+  // $scope.currentDeck;
+  // DeckFactory.getAllDecks(UserFactory.deckId).then((data) => {
+  //   $scope.decks = data.data;
+  //   console.log($scope.decks);
+  //   $scope.currentDeck = $scope.decks[$stateParams.id-1];
+  // });
   $scope.cards;
-  DeckFactory.setDeck(($stateParams.id -1) ).then((data) => {
+  DeckFactory.setDeck($stateParams.id).then((data) => {
     $scope.cards = data.data;
     $scope.currentQuestion = $scope.cards[$scope.index];
     //  The text to display on the card

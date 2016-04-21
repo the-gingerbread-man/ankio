@@ -7,17 +7,14 @@ router
 	.post('/create', (req, res) => {
 		Deck
 			.create({ userUserId: req.body.userId, deckName: req.body.deckName })
-			.then(newDeck => {
-				console.log('New Deck Data Values: ', newDeck.dataValues);
-				res.send(newDeck.dataValues);
-			})
-		.catch(console.error);
+			.then(newDeck => { res.send(newDeck.dataValues); })
+			.catch(console.error);
 	})
 
 	.get('/getAll', (req, res) => {
 		Deck
-			.findAll({ where: { userUserId: req.body.userId }})	// Should this be req.body or req.query ??
-			.then(res.send)
+			.findAll({ where: { userUserId: req.query.userId }})	// Should this be req.body or req.query ??
+			.then(dbResponse => { res.send(dbResponse); })
 			.catch(console.error);
 	})
 

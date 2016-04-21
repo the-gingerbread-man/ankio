@@ -15,9 +15,9 @@ function CreateController($scope, $q, $cookies, DeckFactory, UserFactory) {
   // $scope.$on('handleBroadcast', function(event, status) {
   //   $scope.currentView = status;
   // });
-  DeckFactory.getAllDecks().then((data) => {
+  DeckFactory.getAllDecks($cookies.get('userId')).then((data) => {
     $scope.decks = data.data;
-    //console.log('scope decks',$scope.decks);
+    console.log('scope decks', $scope.decks);
   });
 
 

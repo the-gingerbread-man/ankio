@@ -1,7 +1,7 @@
 <div class="container">
   <h3>Your Decks</h3>
-  <div ng-repeat="deck in decks | orderBy: 'createdAt'">
-    <a href="/#/user/{{ deck.id }}"><p>{{ deck.deckname }}</p></a>
+  <div ng-repeat="deck in decks">
+    <a href="/#/user/{{ deck.deckId }}"><p>{{ deck.deckName }}</p></a>
   </div>
   <div ng-attr-btn-view="{{ !named }}">
     <h2>Create a new deck</h2>
